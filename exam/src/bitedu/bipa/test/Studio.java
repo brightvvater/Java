@@ -1,6 +1,7 @@
 package bitedu.bipa.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //controller?
 public class Studio {
@@ -31,6 +32,9 @@ public class Studio {
 		System.out.println("지금부터 로또 추첨 방송을 시작합니다.");
 		LottoMachine machine = this.ready();
 		System.out.println("추첨을 시작합니다.");
+		
+		//정렬로직
+		
 		LottoBall[] balls = machine.startMachine();
 		//balls의 내용을 출력 
 		System.out.println("제 XXX회 로또 번호는 ");

@@ -1,7 +1,7 @@
 package bitedu.bipa.test;
 
 //데이터 클래스(DTO, VO) 
-public class LottoBall {
+public class LottoBall implements Comparable{
 	private int number;
 	private boolean isSelected;
 	
@@ -28,6 +28,12 @@ public class LottoBall {
 	@Override
 	public String toString() {
 		return String.valueOf(number);
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		
+		return 0;
 	}
 	
 	
