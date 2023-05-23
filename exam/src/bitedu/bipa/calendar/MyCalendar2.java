@@ -15,7 +15,8 @@ public class MyCalendar2 {
 		
 		int lastDate = cal.getActualMaximum(Calendar.DATE); //마지막 일자
 		int lastWeek = cal.getActualMaximum(Calendar.WEEK_OF_MONTH); //마지막 주차
-		
+		//System.out.println(cal.get(Calendar.DAY_OF_WEEK));
+		//System.out.println(Calendar.DATE);
 		System.out.println("일\t월\t화\t수\t목\t금\t토");
 		for(int i = 0; i < lastWeek; i++) {
 			String str = "";

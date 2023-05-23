@@ -15,7 +15,7 @@ public class CalendarService {
 		//원하는 만큼 달력을 만들어 낼 수 있다
 		//원하는 달, 또는 원하는 년도의 모든 월을 볼 수 있다.
 		Scanner sc = new Scanner(System.in);
-		MyCalendar mc = new MyCalendar();
+		MyCalendar2 mc = new MyCalendar2();
 		boolean flag = false;
 		while(!flag) {
 			
