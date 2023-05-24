@@ -1,9 +1,9 @@
 package bitedu.bipa.exam;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
-import exam.Lotto;
 
 public class LottoMachine {
 	
