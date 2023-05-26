@@ -8,13 +8,16 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
 
+
+
+
 public class Main {
 
 	public static void main(String[] args) {
 		
 			Main main = new Main();
 			main.startTestfromDataBase();
-		
+	
 	}
 	
 	//데이터베이스로 테스트하기
