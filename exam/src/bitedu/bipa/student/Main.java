@@ -19,12 +19,13 @@ public class Main {
 	public static void main(String[] args) {
 		
 			Main main = new Main();
-			main.connection();
+			//main.connection();
 			//main.startTest();
 			main.startTestfromDataBase();
 		
 	}
 	
+	//데이터베이스로 테스트하기
 	public void startTestfromDataBase() {
 		System.out.println("시험지를 배부합니다.");
 		System.out.println("시험을 시작합니다.");
@@ -40,16 +41,17 @@ public class Main {
 		this.submitAnswer(2, answer);
 		//3번문제
 		answer = service.dataSolve3();
-		//System.out.println(answer);
+		System.out.println(answer); 
 		this.submitAnswer(3, answer);
 		//4번문제
 		answer = service.dataSolve4();
-		//System.out.println(answer);
+		System.out.println(answer);
 		this.submitAnswer(4, answer);
 		System.out.println("답안지를 모두 제출합니다.");
 		System.out.println("시험을 종료합니다.");
 	}
 	
+	//파일로 테스트하기
 	public void startTest() {
 		System.out.println("시험지를 배부합니다.");
 		ArrayList<Student> list = this.readFile();
@@ -77,6 +79,7 @@ public class Main {
 		System.out.println("시험을 종료합니다.");
 	}
 	
+	//답안지 제출
 	private void submitAnswer(int num, String answer) {
 		try {
 			Thread.sleep(1000);
@@ -107,7 +110,7 @@ public class Main {
 				 * InputStream is = new FileInputStream( "C:\\Abc1115.txt"); InputStreamReader
 				 * reader = new InputStreamReader(is);
 				 */
-				FileReader r = new FileReader("C:\\Abc1115.txt");
+				FileReader r = new FileReader("./data/Abc1115.txt");
 				//FileReader r = new FileReader(new File("C:\\Abc1115.txt"));
 				BufferedReader br = new BufferedReader(r);) {
 			
@@ -147,6 +150,7 @@ public class Main {
 	}
 	
 	
+	//database connection 연결 후 데이터 insert 하기 
 	public void connection() {
 		ArrayList<Student> list = this.readFile();
 		
@@ -157,8 +161,8 @@ public class Main {
 		 
 			 //연결하기
 			 conn = DriverManager.getConnection(
-					 "jdbc:mysql://localhost:3306/thisisjava",
-					 "java",
+					 "jdbc:mysql://localhost:3306/new_schema",
+					 "root",
 					 "mysql"
 					 );
 		 
@@ -167,13 +171,12 @@ public class Main {
 			 String sql = new StringBuilder()
 					 .append("INSERT INTO student (studentNo, email, kor, eng, math, sci, hist, total, mngCode, accCode, locale)")
 					 .append("VALUES (?,?,?,?,?,?,?,?,?,?,?)")
-					 .toString();
+					 .toString();                     
 			 
 			 PreparedStatement pstmt = conn.prepareStatement(sql);
 			 
 		
-			 /*for(int i=0;i<list.size();i++) {
-				 Student student = list.get(i);
+			 for(Student student : list) {
 				 pstmt.setInt(1, student.getSno());
 				 pstmt.setString(2, student.getEmail());
 				 pstmt.setInt(3, student.getKor());
@@ -186,8 +189,8 @@ public class Main {
 				 pstmt.setString(10, student.getScoreCode());
 				 pstmt.setString(11, student.getLocalCode());
 				 
-				 
-			 }*/
+				 pstmt.execute();
+			 }
 			 
 			 
 			 //PreparedStatement 닫기

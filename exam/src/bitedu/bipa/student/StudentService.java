@@ -137,6 +137,7 @@ public class StudentService {
 	
 	// 지역코드가 B 인 자료에 대하여 (국어점수 + 영어점수)으로 내림차순 정렬했을때 5번째 학번 출력하시오. 동일값 발생시 학번에 대한 오름차순 정렬하시오.
 	public String dataSolve1() {
+		System.out.println("A");
 		String answer = null;
 		Connection conn = null;
 		 try {
@@ -145,8 +146,8 @@ public class StudentService {
 		 
 			 //연결하기
 			 conn = DriverManager.getConnection(
-					 "jdbc:mysql://localhost:3306/thisisjava",
-					 "java",
+					 "jdbc:mysql://localhost:3306/new_schema",
+					 "root",
 					 "mysql"
 					 );
 		 
@@ -154,22 +155,17 @@ public class StudentService {
 			 
 			 
 			 String sql = "" +
-					   "SELECT studentNo " +
-					   "FROM student " +
-					   "WHERE (";///////////////////////////////////////////////
+					 "select studentNo from student "
+					 +"where locale ='B' "
+					 +"ORDER BY (kor+eng) desc, studentNo asc limit 4,1";
 			 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			 
 			//SQL 문 실행 후, ResultSet을 통해 데이터 읽기
 			 ResultSet rs = pstmt.executeQuery();
 			 if(rs.next()) { //1개의 데이터 행을 가져왔을 경우
-			 User user = new User();
-			 user.setUserId(rs.getString("userid"));
-			 user.setUserName(rs.getString("username"));
-			 user.setUserPassword(rs.getString("userpassword"));
-			 user.setUserAge(rs.getInt(4)); //컬럼 순번을 이용
-			 user.setUserEmail(rs.getString(5)); //컬럼 순번을 이용
-			 System.out.println(user);
+				  answer = rs.getString("studentNo");
+			 
 			 } else { //데이터 행을 가져오지 않았을 경우
 			 System.out.println("사용자 아이디가 존재하지 않음");
 			 }
@@ -204,31 +200,28 @@ public class StudentService {
 		 
 			 //연결하기
 			 conn = DriverManager.getConnection(
-					 "jdbc:mysql://localhost:3306/thisisjava",
-					 "java",
+					 "jdbc:mysql://localhost:3306/new_schema",
+					 "root",
 					 "mysql"
 					 );
 		 
 			 System.out.println("연결 성공");
 			 
 			 
-			 String sql = "" +
-					   "SELECT userid, username, userpassword, userage, useremail " +
-					   "FROM users " +
-					   "WHERE userid= ?";
+			 /*String sql = "" +
+					 "select * from student "
+					 +"where locale ='B' "
+					 +"ORDER BY (kor+eng) desc limit 0,1"; */
+			 
+			 String sql = "select max(kor+eng) "
+					 	+"from student where locale='B'";
 			 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			 
 			//SQL 문 실행 후, ResultSet을 통해 데이터 읽기
 			 ResultSet rs = pstmt.executeQuery();
 			 if(rs.next()) { //1개의 데이터 행을 가져왔을 경우
-			 User user = new User();
-			 user.setUserId(rs.getString("userid"));
-			 user.setUserName(rs.getString("username"));
-			 user.setUserPassword(rs.getString("userpassword"));
-			 user.setUserAge(rs.getInt(4)); //컬럼 순번을 이용
-			 user.setUserEmail(rs.getString(5)); //컬럼 순번을 이용
-			 System.out.println(user);
+				 answer = rs.getString(1);
 			 } else { //데이터 행을 가져오지 않았을 경우
 			 System.out.println("사용자 아이디가 존재하지 않음");
 			 }
@@ -265,37 +258,28 @@ public class StudentService {
 		 
 			 //연결하기
 			 conn = DriverManager.getConnection(
-					 "jdbc:mysql://localhost:3306/thisisjava",
-					 "java",
+					 "jdbc:mysql://localhost:3306/new_schema",
+					 "root",
 					 "mysql"
 					 );
 		 
 			 System.out.println("연결 성공");
 			 
 			 String sql = "" +
-					   "SELECT userid, username, userpassword, userage, useremail " +
-					   "FROM users " +
-					   "WHERE userid= ?";
+					 "select sum((case when accCode='A' then 5 when accCode='B' then 15 when accCode='C' then 20 end) + total) as total "
+					 +"from student where  eng+math>=120";
 			 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			 
 			//SQL 문 실행 후, ResultSet을 통해 데이터 읽기
 			 ResultSet rs = pstmt.executeQuery();
 			 if(rs.next()) { //1개의 데이터 행을 가져왔을 경우
-			 User user = new User();
-			 user.setUserId(rs.getString("userid"));
-			 user.setUserName(rs.getString("username"));
-			 user.setUserPassword(rs.getString("userpassword"));
-			 user.setUserAge(rs.getInt(4)); //컬럼 순번을 이용
-			 user.setUserEmail(rs.getString(5)); //컬럼 순번을 이용
-			 System.out.println(user);
+				 answer = rs.getString("total");
+				 
 			 } else { //데이터 행을 가져오지 않았을 경우
 			 System.out.println("사용자 아이디가 존재하지 않음");
 			 }
 			 rs.close();
-			 
-			 
-			 
 			 
 			 //PreparedStatement 닫기
 			 pstmt.close();
@@ -325,8 +309,8 @@ public class StudentService {
 		 
 			 //연결하기
 			 conn = DriverManager.getConnection(
-					 "jdbc:mysql://localhost:3306/thisisjava",
-					 "java",
+					 "jdbc:mysql://localhost:3306/new_schema",
+					 "root",
 					 "mysql"
 					 );
 		 
@@ -334,22 +318,17 @@ public class StudentService {
 			 
 			 
 			 String sql = "" +
-					   "SELECT userid, username, userpassword, userage, useremail " +
-					   "FROM users " +
-					   "WHERE userid= ?";
+					 "select count(*) as count from student "
+					 +"where (kor+(case when locale='A' then 5 when locale='B' then 10 when locale='C' then 15 end) >=50) "
+					 +"and (accCode in('A','B'))";
+					 
 			 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			 
 			//SQL 문 실행 후, ResultSet을 통해 데이터 읽기
 			 ResultSet rs = pstmt.executeQuery();
 			 if(rs.next()) { //1개의 데이터 행을 가져왔을 경우
-			 User user = new User();
-			 user.setUserId(rs.getString("userid"));
-			 user.setUserName(rs.getString("username"));
-			 user.setUserPassword(rs.getString("userpassword"));
-			 user.setUserAge(rs.getInt(4)); //컬럼 순번을 이용
-			 user.setUserEmail(rs.getString(5)); //컬럼 순번을 이용
-			 System.out.println(user);
+				 answer = rs.getString("count");
 			 } else { //데이터 행을 가져오지 않았을 경우
 			 System.out.println("사용자 아이디가 존재하지 않음");
 			 }

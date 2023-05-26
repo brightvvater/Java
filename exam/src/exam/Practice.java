@@ -1,52 +1,50 @@
 package exam;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Practice {
 	
 	public static void main(String[] args) {
-		WorkThread workThreadA = new WorkThread("workThreadA");
-		WorkThread workThreadB = new WorkThread("workThreadB");
-		workThreadA.start();
-		workThreadB.start();
+		System.out.println("학생번호\t영어점수\t총점\t");
 		
-		try {       
-			Thread.sleep(5000);
-		} catch (Exception e) {	}
-		workThreadA.work= false;
-		
+		Practice practice = new Practice();
 		try {
-			Thread.sleep(10000);
-		} catch (Exception e) {
-			// TODO: handle exception
+			practice.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		workThreadA.work = true;
+		
 	}
+	
+	public void getConnection() throws SQLException {
+		Connection conn = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/new_schema","root","mysql");
+		
+		String sql = "select studentNo, eng, total from student ORDER BY total asc";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			System.out.println(rs.getString(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3));
+		}
+	}
+	
 	
 	
 }
 
 
-class WorkThread extends Thread {
 
-	public boolean work = true;
-	
-	public WorkThread(String name) {
-		setName(name);
-	}
-	
 
-	@Override
-	public void run() {
-		while(true) {
-			if(work) {
-				System.out.println(getName() +": 작업처리");
-			}else {
-				Thread.yield();
-			}
-		}
-	}
-	
-}
+
+
+
+
 
 
 
