@@ -1,4 +1,4 @@
-package bitedu.bipa.lesson3;
+package bitedu.bipa.gisadb;
 
 
 import java.io.BufferedWriter;

@@ -1,4 +1,4 @@
-package bitedu.bipa.exam;
+package bitedu.bipa.lotto;
 
 
 import java.util.ArrayList;

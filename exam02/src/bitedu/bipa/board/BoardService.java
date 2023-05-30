@@ -55,7 +55,7 @@ public class BoardService {
 		System.out.print("bno: "); 
 		int bno = Integer.parseInt(scanner.nextLine());
 		  
-		  //boards 테이블에서 해당 게시물을 가져와 출력
+		  ///boards 테이블에서 해당 게시물을 가져와 출력
 		
 		  BoardDTO board = boardDao.read(bno);
 		  System.out.println("#############");
