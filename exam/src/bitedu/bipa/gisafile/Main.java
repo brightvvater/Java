@@ -19,9 +19,15 @@ public class Main {
 	public static void main(String[] args) {
 		
 			Main main = new Main();
-			//main.connection();
+			//main.insert();
 			//main.startTest();
-			main.startTestfromDataBase();
+			try {
+				main.insertWithBatchAndTransaction();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//main.startTestfromDataBase();
 		
 	}
 	
@@ -151,8 +157,7 @@ public class Main {
 	
 	
 	//database connection 연결 후 데이터 insert 하기 
-	public void connection() {
-		ArrayList<Student> list = this.readFile();
+	public Connection getConnection() {
 		
 		Connection conn = null;
 		 try {
@@ -168,15 +173,65 @@ public class Main {
 		 
 			 System.out.println("연결 성공");
 			 
-			 String sql = new StringBuilder()
-					 .append("INSERT INTO student (studentNo, email, kor, eng, math, sci, hist, total, mngCode, accCode, locale)")
-					 .append("VALUES (?,?,?,?,?,?,?,?,?,?,?)")
-					 .toString();                     
 			 
-			 PreparedStatement pstmt = conn.prepareStatement(sql);
+		 } catch (ClassNotFoundException e) {
+			 e.printStackTrace();
+			} catch (SQLException e) { e.printStackTrace(); }
+			finally {
+				/*
+				 * if(conn != null) { try { //연결 끊기 conn.close(); System.out.println("연결 끊기"); }
+				 * catch (SQLException e) {} }
+				 */
+		 }
+		 return conn;
+		 
+	}
+	
+	private void insert() throws ClassNotFoundException, SQLException {
+		ArrayList<Student> list = this.readFile();
+		Connection conn = this.getConnection();
+		String sql = new StringBuilder()
+				 .append("INSERT INTO student (studentNo, email, kor, eng, math, sci, hist, total, mngCode, accCode, locale)")
+				 .append("VALUES (?,?,?,?,?,?,?,?,?,?,?)")
+				 .toString();                     
+		 
+		 PreparedStatement pstmt = conn.prepareStatement(sql);
+		 
+	
+		 for(Student student : list) {
+			 pstmt.setInt(1, student.getSno());
+			 pstmt.setString(2, student.getEmail());
+			 pstmt.setInt(3, student.getKor());
+			 pstmt.setInt(4, student.getEng());
+			 pstmt.setInt(5, student.getMat());
+			 pstmt.setInt(6, student.getSci());
+			 pstmt.setInt(7, student.getHis());
+			 pstmt.setInt(8, student.getTotal());
+			 pstmt.setString(9, student.getTeacherCode());
+			 pstmt.setString(10, student.getScoreCode());
+			 pstmt.setString(11, student.getLocalCode());
 			 
+			 pstmt.execute();
+			 pstmt.close();
+		 }
+	}
+	
+	private void insertWithBatchAndTransaction() throws ClassNotFoundException {
+		ArrayList<Student> list = this.readFile();
+		Connection conn = this.getConnection();
+		String sql = new StringBuilder()
+				 .append("INSERT INTO student (studentNo, email, kor, eng, math, sci, hist, total, mngCode, accCode, locale)")
+				 .append("VALUES (?,?,?,?,?,?,?,?,?,?,?)")
+				 .toString();    
 		
-			 for(Student student : list) {
+		 try {
+			conn.setAutoCommit(false);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			
+			int count=0;
+			for(int i=0;i<list.size();i++) {
+				Student student = list.get(i);
 				 pstmt.setInt(1, student.getSno());
 				 pstmt.setString(2, student.getEmail());
 				 pstmt.setInt(3, student.getKor());
@@ -189,24 +244,35 @@ public class Main {
 				 pstmt.setString(10, student.getScoreCode());
 				 pstmt.setString(11, student.getLocalCode());
 				 
-				 pstmt.execute();
-			 }
+				 
+				 pstmt.addBatch();
+				 //pstmt.clearParameters();
+					/*
+					 * if(i%100 ==0) { //System.out.println("배치"+i/100);
+					 * 
+					 * } 넣을 필요 없음? 
+					 */
+				 count++;
+				 if(count%100==0) {
+					 System.out.println("배치"+i/100);
+					 pstmt.executeBatch();
+				 }
+			}
+			if(count>0) {
+				System.out.println("배치"+count);
+				pstmt.executeBatch();
+			}
+			
+			conn.commit();
 			 
+			pstmt.close();
+			conn.close();
 			 
-			 //PreparedStatement 닫기
-			 pstmt.close();
-		 } catch (ClassNotFoundException e) {
-			 e.printStackTrace();
-			} catch (SQLException e) { e.printStackTrace(); }
-			finally {
-			 if(conn != null) {
-				 try {
-					 //연결 끊기
-					 conn.close();
-					 System.out.println("연결 끊기");
-				 } catch (SQLException e) {}
-			 }
-		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
 	}
 
 }
