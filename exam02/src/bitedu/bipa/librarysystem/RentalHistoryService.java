@@ -25,7 +25,16 @@ public class RentalHistoryService {
 				System.out.println("대출한 도서내역이 없습니다.");
 			}else  {
 				System.out.println("==========================================");
-				System.out.println(list);
+				for(ReturnDTO dto: list) {
+					StringBuffer sb = new StringBuffer();
+					sb.append(dto.getHistoryNo()+"\t");
+					sb.append(dto.getAuthor()+"\t");
+					sb.append(dto.getRentalDate()+"\t");
+					sb.append(dto.getExpectedReturnDate());
+					System.out.println(sb);
+					
+				}
+				
 				
 				
 				System.out.println("==========================================");
@@ -63,11 +72,13 @@ public class RentalHistoryService {
 				}else if(flag ==true) {
 					//연체일자 알려주기
 					int count = dao.checkOverDue(historyNo);
-					if(count>14) {
-						System.out.println("연체일자:" + (count-14));
+					if(count>0) {
+						System.out.println("연체일자:" + count);
 						System.out.println("반납 완료되었습니다. 연체일자만큼 대출 불가합니다!!");
 						System.out.println();
 						System.out.println("==========================================");
+						
+						dao.insertOverDue(count, userNo); //연체일자 넣어주기
 						findRentalHistoriesByUserNo(userNo);
 					}else {
 						System.out.println("반납 완료되었습니다.");

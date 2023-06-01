@@ -80,7 +80,7 @@ public class ReturnDTO {
 
 	@Override
 	public String toString() {
-		return  historyNo  +"\t"  + author + "\t" + rentalDate
+		return historyNo  +"\t"  + author + "\t" + rentalDate
 				+ "\t" + expectedReturnDate+"\n";
 	}
 	

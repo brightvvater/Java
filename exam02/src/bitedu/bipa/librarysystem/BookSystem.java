@@ -6,8 +6,9 @@ public class BookSystem {
 		// TODO Auto-generated method stub
 		
 		RentalHistoryService service = new RentalHistoryService();
-		service.findRentalHistoriesByUserNo(1);
+		service.findRentalHistoriesByUserNo(3);
 
+		
 	}
 
 }

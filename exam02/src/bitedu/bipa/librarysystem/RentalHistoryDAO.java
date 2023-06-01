@@ -65,6 +65,8 @@ public class RentalHistoryDAO {
 			return false;
 		}
 		conn.commit();
+		ConnectionManager.closeConnection(null, pstmt, conn);
+		
 		
 		return flag;
 	}
@@ -76,25 +78,60 @@ public class RentalHistoryDAO {
 	public int checkOverDue(int historyNo) {
 		int count = 0;
 		Connection conn = ConnectionManager.getConnection();
-		String sql = "select rental_date, return_date from rentalhistory where history_no = ?;";
+		String sql = "select expect_return_date, return_date from rentalhistory where history_no = ?;";
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, historyNo);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				LocalDate rentalDate = rs.getDate(1).toLocalDate();
+				LocalDate expectDate = rs.getDate(1).toLocalDate();
 				LocalDate returnDate = rs.getDate(2).toLocalDate();
 				
-				
-				count = returnDate.getDayOfYear()-rentalDate.getDayOfYear(); //반납일자 - 대출일자
+				count = returnDate.getDayOfYear()-expectDate.getDayOfYear(); //연체일자 : 반납일자 - 반납예정일자	
 			}
+			
+			ConnectionManager.closeConnection(rs, pstmt, conn);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return count;
+	}
+	
+	//연체일자만큼 user테이블에 넣어주기
+	public void insertOverDue(int count, int userNo) {
+		Connection conn = ConnectionManager.getConnection();
+		String sql = "update user set overdue_date =? where user_no = ?;";
+		
+		int year = LocalDate.now().getYear();
+		int overDueDate = (LocalDate.now().getDayOfYear() + count);
+		
+		if(overDueDate>365) {
+			year += overDueDate/365;
+			overDueDate%=365;
+		}
+		//System.out.println(LocalDate.ofYearDay(year, overDueDate));
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setDate(1, Date.valueOf(LocalDate.ofYearDay(year, overDueDate)));
+			pstmt.setInt(2, userNo);
+			
+			int updateCount = pstmt.executeUpdate();
+			if(updateCount ==0) {
+				System.out.println("연체일자 입력 실패");
+			}
+			
+			ConnectionManager.closeConnection(null, pstmt, conn);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 
