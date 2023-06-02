@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RentalHistoryDAO {
 	
@@ -58,6 +59,7 @@ public class RentalHistoryDAO {
 		
 		//도서에 대출여부 update 하기
 		sql = "update book set rental_check ='F' where book_no = ?;";
+		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, bookNo);
 		int updateBook = pstmt.executeUpdate();
 		
@@ -88,8 +90,13 @@ public class RentalHistoryDAO {
 				LocalDate expectDate = rs.getDate(1).toLocalDate();
 				LocalDate returnDate = rs.getDate(2).toLocalDate();
 				
-				count = returnDate.getDayOfYear()-expectDate.getDayOfYear(); //연체일자 : 반납일자 - 반납예정일자	
+				int year = returnDate.getYear() - expectDate.getYear();
+				if(year>0) {
+					count = (year*365);
+				}
+				count += (returnDate.getDayOfYear()-expectDate.getDayOfYear()); //연체일자 : 반납일자 - 반납예정일자	
 			}
+			
 			
 			ConnectionManager.closeConnection(rs, pstmt, conn);
 		} catch (SQLException e) {
@@ -103,7 +110,7 @@ public class RentalHistoryDAO {
 	//연체일자만큼 user테이블에 넣어주기
 	public void insertOverDue(int count, int userNo) {
 		Connection conn = ConnectionManager.getConnection();
-		String sql = "update user set overdue_date =? where user_no = ?;";
+
 		
 		int year = LocalDate.now().getYear();
 		int overDueDate = (LocalDate.now().getDayOfYear() + count);
@@ -115,14 +122,32 @@ public class RentalHistoryDAO {
 		//System.out.println(LocalDate.ofYearDay(year, overDueDate));
 		
 		try {
+			String sql = "select ifnull(overdue_date, now()) from user where user_no= ?;";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setDate(1, Date.valueOf(LocalDate.ofYearDay(year, overDueDate)));
-			pstmt.setInt(2, userNo);
-			
-			int updateCount = pstmt.executeUpdate();
-			if(updateCount ==0) {
-				System.out.println("연체일자 입력 실패");
+			pstmt.setInt(1, userNo);
+			ResultSet rs = pstmt.executeQuery();
+			LocalDate date = null;
+			if(rs.next()) {
+				date = rs.getDate(1).toLocalDate();
 			}
+			
+			//System.out.println(date.getDayOfYear());
+			//System.out.println(overDueDate);
+			
+			//테이블의 overdue_date 가져와서 비교하고 연체일이 더 클 경우에만 업데이트해주기
+			if(date.getDayOfYear()<overDueDate && date.getYear()<=year) {
+				
+				sql = "update user set overdue_date =? where user_no = ?;";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setDate(1, Date.valueOf(LocalDate.ofYearDay(year, overDueDate)));
+				pstmt.setInt(2, userNo);
+				
+				int updateCount = pstmt.executeUpdate();
+				if(updateCount ==0) {
+					System.out.println("연체일자 입력 실패");
+				}
+			}
+			
 			
 			ConnectionManager.closeConnection(null, pstmt, conn);
 			
