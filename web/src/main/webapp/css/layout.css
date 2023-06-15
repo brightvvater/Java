@@ -1,0 +1,343 @@
+@charset "EUC-KR";
+* {
+    margin: 0;
+    padding: 0;
+  }
+body {
+	margin: 0 auto;
+	padding: 0;
+	font-family: "¸¼Àº °íµñ";
+}
+
+header {
+	width: 100%;
+	height: 150px;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+footer {
+	width: 100%;
+    height: 100px;
+    background-color: #2d2d2d;
+}
+a {
+	text-decoration: none;
+}
+
+/* hover */
+
+/* ÀÌÇýÀ± ¼öÁ¤
+.menu_bar_category li a:hover{
+	background-color: rgb(42, 106, 201);
+	color:black;
+
+} */
+/* ÀÌÇýÀ± ¼öÁ¤ 
+.submenu > li {
+	line-height: 30px;
+
+	background-color: rgb(42, 106, 201);
+	text-align: right
+} */
+
+.submenu {
+	/*display: none;*/
+	opacity: 0;
+	height: 10px; /*ulÀÇ ³ôÀÌ¸¦ ¾Èº¸ÀÌ°Ô Ã³¸®*/
+	overflow: hidden;
+}
+.submenu li {
+	width: 80%;
+}
+.menu_bar_category > li:hover {
+	background-color: rgb(105 150 217);
+	/* transition-duration: 0.5s; */
+	border-radius: 5px;
+}
+
+.menu_bar_category > li:hover .submenu {
+	display: inline-block;
+	opacity: 1;
+	transition: all 1s;
+	height: 250px; /*¼­ºê¸Þ´º liÇÑ°³ÀÇ ³ôÀÌ 50*5*/
+	transition-duration: 1s;
+}
+.submenu > li > a{
+	line-height: 30px;
+	text-align: left;
+	margin-right: 10%;
+}
+/*a:hover {*/
+/*	text-decoration: underline; */
+/*}*/
+.wrapper {
+	display: flex;
+}
+
+.btn_logout {
+	background-color: rgba(235, 255, 249, 0.45);
+	border-radius: 1em;
+	border: none;
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+	position: absolute;
+	left: 200%;
+	width: 100%;
+	height: 50px
+}
+
+.btn_logout:hover {
+	background-color: rgb(42, 106, 201);
+	color: black;
+}
+
+.btn_s_red {
+	border: none;
+	border-radius: 3px;
+	background-color: #f16262;
+	padding: 5px 5px;
+	color: white;
+	font-weight: bold;
+}
+.btn_s_red:hover {
+	background-color: #db3c3c;
+}
+.btn_m_red {
+	border: none;
+	border-radius: 3px;
+	background-color: #f16262;
+	padding: 0px;
+	color: white;
+	font-weight: bold;
+}
+.btn_m_red:hover {
+	background-color: #db3c3c;
+}
+.btn_m_blue {
+	border: none;
+	border-radius: 3px;
+	background-color: #8ac6df;
+	padding: 10px;
+	color: white;
+	font-weight: bold;
+}
+.btn_m_blue:hover {
+	background-color: #64b4ed;
+}
+.btn-submit{
+    background-color: #8ac6df;
+    border-radius: 1em;
+    border:  none;
+    box-shadow: 4px 2px 10px lightgray;
+    width: 13%;
+    color: white;
+    font-size: 1.3em;
+    margin-left: 1em;
+}
+.btn-submit:hover {
+    background-color: 	#64b4ed	;
+}
+input {padding: 10px; border-radius: 3px; border: 1px solid #9f9f9f;}
+select {padding: 10px;border-radius: 3px; border: 1px solid #9f9f9f;}
+.flex_1 {flex: 1;}
+
+/* ¸Þ´º¹Ù
+.menu_bar {
+	width: 15%;
+	height: 100vh;
+	background-color: #8ac6df;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 3;
+} */
+
+.menu_bar {
+	width: 15%;
+	background-color: #8ac6df;
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+	line-height: 3;
+	position: relative;
+	min-height: 100vh;/* 800px */
+}
+
+.menu_bar a {
+	color: white;
+}
+.menu_bar a:hover {
+	text-decoration: underline; 
+}
+.menu_bar ul {
+	margin: 0 auto;
+	padding: 30px 0px;
+}
+.menu_bar ul li {
+	width: 75%;
+	margin: 0 auto;
+	padding: 10px 0px; 
+	padding-left: 7px;
+	border-bottom: 1px solid #ddd;
+	list-style: square;
+	color: white;
+	display: flex;
+	flex-wrap: wrap;
+}
+.menu_bar ul li .menu_icon {
+    max-width: 8%;
+    filter: invert(1);
+}
+/*.menu_bar ul li:hover {background-color: blue;}*/
+.menu_bar ul li:last-child {
+	border-bottom: 0px;
+}
+.menu_bar ul li a {
+	width: 80%;
+	padding-left: 15px;
+}
+.menu_bar ul li .menu_div {
+	display: flex;
+	flex-direction: row;
+	/*width: 10%;*/
+	width: 100%;
+	padding-right: 15px;
+}
+.menu_bar ul li .menu_div .submenu_icon {
+	/*max-width: 50%;*/
+	width: 10px;
+	filter: invert(1);
+}
+
+.menu_bar_header {
+	text-align: center;
+}
+
+.menu_bar_footer {
+	display: flex;
+	position: absolute;
+	justify-content: space-around;
+	left: 30px;
+	top: 700px
+}
+
+
+main {
+	width: 85%;
+	font-size: 12.5px;
+}
+main .menu_info {
+	width: 100%;
+	height: 70px;
+	display: flex;
+	margin-bottom: 10px;
+}
+main .menu_info .menu_label {
+	font-size: 16px;
+	width: 30%;
+	text-align: right;
+    padding: 20px 0px;
+    color: #737272;
+}
+main .menu_info .menu_title { width: 30%; }
+/* ÀÌÇýÀ± ¼öÁ¤ 
+main .menu_info div {
+	float:left;
+} */
+main .menu_info img {
+	max-width:3%;
+}
+main .contents {
+	padding: 20px 30px 50px 30px;
+}
+
+.content_search {
+	display: flex;
+    width: 100%;
+    height: 80px;
+    background-color: #F5F5F5;
+    border-radius: 1em;
+    /* border-radius: 5px;
+    background-color: #c7c5c5;
+    border: 2px solid #aaa; */
+    margin: 0px 0px 20px 0px;
+    box-shadow: 2px 3px 8px lightgray;
+}
+.content_section ul {
+	display: flex;
+	width: 40%;
+	padding-top: 10px;
+	margin: 0 auto;
+}
+.content_section ul li {
+	list-style: none;
+	margin-right: 10px;
+    margin-top: 25px;
+}
+.content_section ul li input {width: 90%;}
+
+.content_section {
+	width: 100%;
+    max-height: 720px;
+    min-height: 100px;
+    background-color: #F5F5F5;
+    border-radius: 1em;
+    box-shadow: 2px 3px 8px lightgray;
+    margin-bottom: 20px;
+    padding: 20px 0px;
+	/* border-radius: 5px;
+    border: 2px solid #aaa; */
+}
+.content_section form {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+.sort_tbl {
+	padding: 20px 20px 10px 20px;
+	font-size: 15px;
+}
+.sort_tbl label {padding: 10px 5px;}
+.overdue_tbl {
+	width: 100%;
+	padding: 0px 20px 20px 20px;
+}
+.overdue_tbl thead {
+	margin: 15px;
+}
+.overdue_tbl thead tr {background-color: gainsboro;}
+.overdue_tbl thead tr th {border-right: 1px solid #c7c5c5; padding: 10px;}
+.overdue_tbl tbody {text-align: center;}
+.overdue_tbl tbody tr {background-color: white}
+.overdue_tbl tbody tr:hover {background-color: #eee; cursor: pointer;}
+.overdue_tbl tbody tr td { height: 30px; padding: 8px 0px; border-bottom: 1px dashed #ddd; border-right: 1px solid #ddd;}
+
+.paging_ul { 
+	margin-top: 20px;
+    height: 70px; }
+.paging_ul ul {
+	display: flex;
+    margin: 0 auto;
+    width: 50%
+}
+.paging_ul ul li { list-style: none; text-align: center; }
+.paging_ul ul li a {
+	color: #0a0a0a;
+	font-size: 15px;
+	font-weight: bold;
+	border: 2px solid #c7c5c5;
+    border-radius: 5px;
+    padding: 5px 13px;
+    background-color: white;
+}
+.paging_ul ul .default_check a {
+	background-color: #8ac6df;
+	color: white;
+	border: 1px solid #fff;
+}
+.paging_ul ul .paging_li {
+    width: 7%;
+    text-align: center;
+}
+.paging_ul ul .paging_li img { width: 18px; height:18px; }
