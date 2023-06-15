@@ -9,6 +9,7 @@ public class BoardMain {
 	
 	public BoardMain() {
 		boardService = new BoardService();
+		
 	}
 
 	public static void main(String[] args) {

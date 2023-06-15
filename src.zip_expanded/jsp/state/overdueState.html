@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>도서 관리 시스템</title>
+<link href="../../css/layout.css" rel="stylesheet" type="text/css">
+<script src="https://kit.fontawesome.com/770bda6b86.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<nav class="menu_bar">
+	        <ul class="menu_bar_category">
+	            <h1 class="menu_bar_header">
+	                <i class="fa-solid fa-book" style="color: #3373e1;"></i>
+	                도서 대출 시스템
+	            </h1>
+	
+	            <li><img class="menu_icon" src="../../images/layout/menu_home.svg"/><a href="home.html">홈</a></li>
+				<li><img class="menu_icon" src="../../images/layout/menu_book.svg"/><a href="totalRent.html">대출/반납</a></li>
+				<li>
+					<div class="menu_div">
+						<img class="menu_icon" src="../../images/layout/menu_list.svg"/>
+						<a href="#">현황</a>
+						<img class="submenu_icon" src="../../images/layout/menu_arrow.svg" class="menu_icon_svg">
+					</div>
+					<ul style="width:100%;" class="submenu">
+	                    <li><a href="totalState.html">전체 대출 목록</a></li>
+	                    <li><a href="turnoverState.html">대출 회전율 정보</a></li>
+	                    <li><a href="overduePerson.html">연체 회원 목록</a></li>
+	                    <li><a href="overdueState.html">연체 도서 목록</a></li>
+	                </ul>
+				</li>
+			</ul>
+	        <div class="menu_bar_footer">
+	            <span> <i class="fa-solid fa-user"></i>     관리자</span>
+	            <button class="btn_logout">로그아웃</button>
+	        </div>
+	    </nav>
+		<main>
+			<div>
+				<div class="contents">
+					<div class="menu_info">
+						<div class="menu_title">
+							<h1>연체 도서 목록</h1>
+						</div>
+						<div class="flex_1"></div>
+						<div class="menu_label">
+							<img alt="" src="../../images/layout/menu_home.svg">
+							<label>관리자 | 현황 | 연체 도서 목록</label>
+						</div>
+					</div>
+					<div class="content_section">
+						<form>
+							<ul>
+								<li>
+									<select>
+										<option>전체</option>
+										<option>도서 번호</option>
+										<option>도서명</option>
+										<option>회원명</option>
+										<option>회원 번호</option>
+									</select>
+								</li>
+								<li class="flex_1">
+									<input type="text" placeholder="검색어를 입력하세요"/>
+								</li>
+								<li>
+									<button class="btn_m_blue">검 색</button>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<input type="text" placeholder="날짜 - 시작"/>
+								</li>
+								<li>~</li>
+								<li>
+									<input type="text" placeholder="날짜 - 종료"/>
+								</li>
+								<li>
+									<button class="btn_m_blue">검 색</button>
+								</li>
+							</ul>
+						</form>
+					</div>
+					
+					<div class="content_section">
+						<div class="sort_tbl">
+							<label><b>전체 36건</b></label>
+							<label>|</label>
+							<label>정렬 : </label>
+							<select>
+								<option>연체일</option>
+								<option>도서명</option>
+								<option>회원명</option>
+							</select>
+						</div>
+						<table class="overdue_tbl" border="0" cellspacing="0">
+							<colgroup>
+								<col width="10%"/>
+								<col width="*"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="7%"/>
+								<col width="10%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th>도서 번호</th>
+									<th>도서명</th>
+									<th>회원 번호</th>
+									<th>회원명</th>
+									<th>대출일</th>
+									<th>연체일</th>
+									<th>반납</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>000028</td>
+									<td>내가 가진 것을 세상이 원하게 하라</td>
+									<td>254872</td>
+									<td>한민주</td>
+									<td>2021-01-02</td>
+									<td>887일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>000001</td>
+									<td>이것이 자바다</td>
+									<td>991219</td>
+									<td>이혜윤</td>
+									<td>2022-03-21</td>
+									<td>444일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>001138</td>
+									<td>스즈메의 문단속</td>
+									<td>097531</td>
+									<td>김선규</td>
+									<td>2022-12-30</td>
+									<td>160일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>000011</td>
+									<td>구의 증명</td>
+									<td>358924</td>
+									<td>장소희</td>
+									<td>2023-01-17</td>
+									<td>142일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>001021</td>
+									<td>당신은 결국 무엇이든 해내는 사람(10만 부 기념 특별 리커버 에디션)</td>
+									<td>097548</td>
+									<td>안은비</td>
+									<td>2023-02-02</td>
+									<td>126일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>002000</td>
+									<td>챗GPT, 질문이 돈이 되는 세상</td>
+									<td>158752</td>
+									<td>유호철</td>
+									<td>2023-03-12</td>
+									<td>88일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>000324</td>
+									<td>돈의 속성(300쇄 리커버에디션)</td>
+									<td>731576</td>
+									<td>이덕수</td>
+									<td>2023-04-11</td>
+									<td>58일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>000205</td>
+									<td>물고기는 존재하지 않는다</td>
+									<td>971543</td>
+									<td>김갑수</td>
+									<td>2023-05-01</td>
+									<td>38일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>000421</td>
+									<td>세이노의 가르침</td>
+									<td>741543</td>
+									<td>홍길동</td>
+									<td>2023-05-02</td>
+									<td>37일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+								<tr>
+									<td>000031</td>
+									<td>설득의 심리학 1(20주년 기념 개정증보판)</td>
+									<td>765167</td>
+									<td>조현수</td>
+									<td>2023-05-22</td>
+									<td>17일</td>
+									<td><button class="btn_s_red">반 납</button></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="paging_ul">
+							<ul>
+								<li class="paging_li"><img alt="" src="../../images/layout/pages_left.svg"></li>
+								<li class="paging_li"><img alt="" src="../../images/layout/page_left.svg"></li>
+								<li class="flex_1 default_check"><a href="#">1</a></li>
+								<li class="flex_1"><a href="#">2</a></li>
+								<li class="flex_1"><a href="#">3</a></li>
+								<li class="paging_li"><img alt="" src="../../images/layout/page_right.svg"></li>
+								<li class="paging_li"><img alt="" src="../../images/layout/pages_right.svg"></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<footer>
+	</footer>
+</body>
+</html>

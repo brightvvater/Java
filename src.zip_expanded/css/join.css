@@ -1,0 +1,26 @@
+
+.form_section {
+	margin: 20px;
+}
+
+input {
+	margin-left: 10px;
+	margin-right: 10px;
+	size: 100px;
+}
+
+select {
+	margin-left:  10px;
+}
+
+textarea {
+	margin-top : 10px;
+}
+
+.additional_info {
+	visibility: hidden;
+}
+
+#alert {
+	color: red;
+}

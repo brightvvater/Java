@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../../css/layout.css" rel="stylesheet" type="text/css">
+<link href="../../css/rent.css" rel="stylesheet" type="text/css">
+<script src="https://kit.fontawesome.com/770bda6b86.js" crossorigin="anonymous"></script>
+<title>totalRent</title>
+</head>
+<body>
+	<div class="wrapper">
+		<nav class="menu_bar">
+	        <ul class="menu_bar_category">
+	            <h1 class="menu_bar_header">
+	                <i class="fa-solid fa-book" style="color: #3373e1;"></i>
+	                도서 대출 시스템
+	            </h1>
+	
+	            <li><img class="menu_icon" src="../../images/layout/menu_home.svg"/><a href="home.html">홈</a></li>
+				<li><img class="menu_icon" src="../../images/layout/menu_book.svg"/><a href="totalRent.html">대출/반납</a></li>
+				<li>
+					<div class="menu_div">
+						<img class="menu_icon" src="../../images/layout/menu_list.svg"/>
+						<a href="#">현황</a>
+						<img class="submenu_icon" src="../../images/layout/menu_arrow.svg" class="menu_icon_svg">
+					</div>
+					<ul style="width:100%;" class="submenu">
+	                    <li><a href="totalState.html">전체 대출 목록</a></li>
+	                    <li><a href="turnoverState.html">대출 회전율 정보</a></li>
+	                    <li><a href="overduePerson.html">연체 회원 목록</a></li>
+	                    <li><a href="overdueState.html">연체 도서 목록</a></li>
+	                </ul>
+				</li>
+			</ul>
+	        <div class="menu_bar_footer">
+	            <span> <i class="fa-solid fa-user"></i>     관리자</span>
+	            <button class="btn_logout">로그아웃</button>
+	        </div>
+	    </nav>
+		<main>
+			<div>
+				<div class="contents">
+					<div class="menu_info">
+						<div class="menu_title">
+							<h1>대출/반납</h1>
+						</div>
+						<div class="flex_1"></div>
+						<div class="menu_label">
+							<img alt="" src="../../images/layout/menu_home.svg">
+							<label>관리자 | 대출/반납</label>
+						</div>
+					</div>
+					<!-- 도서대출 -->
+					<div class="content_section">
+						<h2 class="menu-label">사용자 검색</h2>
+						<div class="search-box">
+							<input type="text" class="input-box" name="user_num"
+								placeholder="사용자 번호를 입력하세요.">
+							<button type="submit" class="btn-submit"
+								onClick="location.href='rent.html'">대출</button>
+							<button type="submit" class="btn-submit"
+								onClick="location.href='totalState.html'">전체대출</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<footer>
+	</footer>
+</body>
+</html>
+

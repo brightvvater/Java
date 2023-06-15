@@ -1,0 +1,216 @@
+@charset "EUC-KR";
+
+body {
+	margin: 0 auto;
+	padding: 0;
+	font-family: "¸¼Àº °íµñ";
+}
+
+header {
+	width: 100%;
+	height: 150px;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+footer {
+	width: 100%;
+    height: 100px;
+    background-color: #2d2d2d;
+}
+.menu_bar_category li a:hover {
+	background-color: rgb(42, 106, 201);
+	color:black;
+}
+a {
+	text-decoration: none;
+	color: white;
+}
+
+
+.menu_bar_category li a:hover{
+	background-color: rgb(42, 106, 201);
+	color:black;
+
+}
+.submenu > li {
+	line-height: 30px;
+
+	background-color: rgb(42, 106, 201);
+	text-align: right
+}
+
+.submenu {
+
+	opacity: 0;
+	height: 10px; 
+	overflow: hidden;
+}
+.menu_bar_category > li:hover {
+	background-color: rgb(42, 106, 201);
+
+}
+
+.menu_bar_category > li:hover .submenu {
+	display: inline-block;
+	opacity: 1;
+	transition: all 1s;
+	height: 250px; 
+	transition-duration: 1s;
+}
+.submenu > li > a{
+	line-height: 20px;
+	text-align: left;
+	margin-right: 10%;
+}
+
+
+.wrapper {
+	display: flex;
+}
+
+.btn_red {
+	border: 1px solid #d75858;
+	border-radius: 3px;
+	background-color: #f16262;
+	padding: 8px 10px;
+	color: white;
+	font-weight: bold;
+}
+
+input {padding: 10px; border-radius: 3px; border: 1px solid #9f9f9f;}
+select {padding: 9px;border-radius: 3px; border: 1px solid #9f9f9f;}
+
+/* ¸Þ´º¹Ù */
+.menu_bar {
+	width: 15%;
+	background-color: #8ac6df;
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+	line-height: 3;
+}
+.menu_bar ul {
+	margin: 0 auto;
+	padding: 30px 0px;
+}
+.menu_bar ul li {
+	width: 70%;
+	margin: 0 auto;
+	padding: 10px 0px; 
+	border-bottom: 1px solid #ddd;
+	list-style: square;
+	color: white;
+	display: flex;
+	flex-wrap: wrap;
+}
+/*.menu_bar ul li:hover {background-color: blue;}*/
+.menu_bar ul li:last-child {
+	border-bottom: 0px;
+}
+.menu_bar ul li a {
+	width: 80%;
+	padding-left: 15px;
+}
+.menu_bar ul li .menu_icon {
+	display: flex;
+	flex-direction: row;
+	/*width: 10%;*/
+	width: 100%;
+	padding-right: 15px;
+}
+.menu_bar ul li .menu_icon img {
+	/*max-width: 50%;*/
+	width: 10px;
+	filter: invert(1);
+}
+
+main {
+	width: 85%;
+	font-size: 12.5px;
+}
+
+main .menu_info {
+    
+    line-height: 3;
+    font-size: 1.4em;
+    padding-right: 40px;
+
+}
+
+main .menu_title{
+    
+    line-height: 3;
+    font-size: 1.4em;
+    padding-left: 40px;
+}
+
+main .contents {
+	padding: 10px 30px;
+}
+
+.disInline{display: inline}
+
+
+.searchPadding{
+	float: right;
+	padding-top: 30px;
+}
+
+.btn_blue {
+	border: 1px solid #1692c5;
+	border-radius: 3px;
+	background-color: #1bb1ef;
+   
+    padding-top: 6px;
+	padding-bottom: 10px;
+	color: white;
+	font-weight: bold;
+}
+
+.btn_red {
+	border: 1px solid #d75858;
+	border-radius: 3px;
+	background-color: #f16262;
+	padding: 8px 10px;
+	color: white;
+	font-weight: bold;
+}
+
+.content_search {
+	display: flex;
+    width: 100%;
+    height: 100px;
+    background-color: lightgray;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    margin: 0px 0px 20px 0px;
+}
+
+
+
+.overdue_tbl {
+	width: 100%;
+}
+.overdue_tbl thead {
+	margin: 5px;
+}
+.overdue_tbl thead tr {background-color: gainsboro;}
+.overdue_tbl thead tr th {border: 1px solid #ddd; padding: 15px;}
+.overdue_tbl tbody {text-align: center;}
+
+.overdue_tbl tbody tr:hover {background-color: #eee; cursor: pointer;}
+.overdue_tbl tbody tr td {padding: 7px 0px; border-bottom: 1px dashed #ddd; border-right: 1px solid #ddd;}
+
+.paging_ul { margin: 30px 10px; }
+.paging_ul ul {
+	display: flex;
+    margin: 0 auto;
+    width: 60%
+}
+.paging_ul ul li { list-style: none; text-align: center; }
+.paging_ul ul .paging_li {
+    width: 7%;
+    text-align: center;
+}
+.paging_ul ul .paging_num {flex: 1;}
+.paging_ul ul .paging_li img { max-width: 15px; }

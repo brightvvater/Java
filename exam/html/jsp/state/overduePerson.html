@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>도서 관리 시스템</title>
+<link href="../../css/total.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<header>
+	</header>
+	<div class="wrapper">
+		<nav class="menu_bar">
+			<ul class="menu_bar_category">
+                <li><a href="home.html">홈</a></li>
+                <li><a href="rent.html">대출/반납</a></li>
+				<li>
+					<div class="menu_icon">
+						<a href="#">현황</a>
+						<img src="../../images/layout/menu_arrow.svg" class="menu_icon_svg">
+					</div>
+					<ul style="width:100%;" class="submenu">
+						<li><a href="totalState.html">전체 대출 목록</a></li>
+						<li><a href="turnoverState.html">대출 회전율 정보</a></li>
+						<li><a href="overduePerson.html">연체 회원 목록</a></li>
+						<li><a href="overdueState.html">연체 도서 목록</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<main>
+			<div>
+                <div class="menu_info" style="float: right">
+                    <label>관리자 / 현황 / 연체 회원</label>
+                </div>
+				<div class="menu_title">
+						<h1>연체 회원 목록</h1>
+				</div>
+			
+				<div class="contents">
+					<div class="content_search">
+
+                            <div class="searchPadding" style="padding-left: 30px">
+								<select>
+									<option>전체</option>
+									<option>회원번호</option>
+									<option>회원이름</option>
+								</select>
+                            </div>
+							<div class="searchPadding" style="padding-left: 5px">
+								<input type="text" placeholder="검색어를 입력하세요"/>								
+                            </div>
+							<div class="searchPadding" style="padding-left: 5px">
+                                <button class="btn_blue">검 색</button>
+                            </div>
+
+					</div>
+					
+					<div class="content_tbl">
+							<div class="disInline">
+							<label><b>전체 2건</b></label>
+							</div>
+							<div class="disInline" style="float: right">
+						
+								<select>
+									<option>연체일수</option>
+									<option>연체횟수</option>
+                                    <option>미반납도서</option>
+                                    <option>대출불가</option>
+                                    <option>대출가능</option>
+								</select>
+                             
+							</div>
+
+
+						<table class="overdue_tbl"  cellspacing="0">
+							<colgroup>
+								<col width="20%"/>
+								<col width="30%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="10%"/>
+								<col width="7%"/>
+								<col width="10%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<th>회원 번호</th>
+									<th>회원 이름</th>
+									<th>연체 횟수</th>
+									<th>연체일 수</th>
+									<th>현재 대출 도서</th>
+									<th>미반납 도서</th>
+									<th>대출 가능 여부</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>00758</td>
+									<td>홍길동</td>
+									<td>3</td>
+									<td>5</td>
+									<td>5</td>
+									<td>4</td>
+									<td><button class="btn_red"> 불 가 </button></td>
+								</tr>
+								<tr>
+									<td>00755</td>
+									<td>이장님</td>
+									<td>3</td>
+									<td>5</td>
+									<td>5</td>
+									<td>4</td>
+									<td><button class="btn_red"> 불 가 </button></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="paging_ul">
+							<ul>
+								<li class="paging_li"><img alt="" src="../../images/layout/pages_left.svg"></li>
+								<li class="paging_li"><img alt="" src="../../images/layout/page_left.svg"></li>
+								<li class="flex_1 default_check"><a href="#">1</a></li>
+								<li class="paging_li"><img alt="" src="../../images/layout/page_right.svg"></li>
+								<li class="paging_li"><img alt="" src="../../images/layout/pages_right.svg"></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<footer>
+	</footer>
+</body>
+</html>

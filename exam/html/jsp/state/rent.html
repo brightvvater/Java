@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="EUC-KR">
+    <title>도서 관리 시스템</title>
+    <link href="../../css/layout.css" rel="stylesheet" type="text/css">
+    <link href="../../css/rent.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+</header>
+<div class="wrapper">
+    <nav class="menu_bar">
+        <ul class="menu_bar_category">
+            <li><a href="home.html">홈</a></li>
+            <li><a href="rent.html">대출/반납</a></li>
+            <li>
+                <div class="menu_icon">
+                    <a href="#">현황</a>
+                    <img src="../../images/layout/menu_arrow.svg" class="menu_icon_svg">
+                </div>
+                <ul style="width:100%;" class="submenu">
+                    <li><a href="totalState.html">전체 대출 목록</a></li>
+                    <li><a href="turnoverState.html">대출 회전율 정보</a></li>
+                    <li><a href="overduePerson.html">연체 회원 목록</a></li>
+                    <li><a href="overdueState.html">연체 도서 목록</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <div>
+            <div class="menu_info">
+                <div>
+                    <div>
+                        <img alt="" src="../../images/layout/menu_home.svg"/>
+                    </div>
+                    <label>관리자 / 대출,반납 목록</label>
+                </div>
+            </div>
+            <div class="contents">
+                <div id="section1">
+                    <div>
+                        <h2 style="display: inline;">이용자 현황정보</h2>
+                        <button>대출가능</button>
+                        <button>예약가능</button>
+                        <button id="red">6/9일까지 대출불가</button>
+                    </div>
+                    <div id="totalList">
+                        <div id="list1">
+                            <span>3</span> <span>1</span> <span>1</span> <span>0</span>
+                        </div>
+                        <div id="list2">
+                            <span>대출</span> <span>예약</span> <span>연체</span> <span>대출가능수</span>
+                        </div>
+                    </div>
+
+                    <div id="personal-info">
+                        <table>
+                            <tr>
+                                <th>이름 : 조현수</th>
+                                <th>전화번호: 010-1111-1111</th>
+                            </tr>
+                            <tr>
+                                <td>주소: 부산광역시 해운대구 센텀동로 41 센텀벤처타운</td>
+                                <td>이메일: bitedu@naver.com</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="section2">
+                    <h2>도서 대출</h2>
+                    <form>
+                        <input type="text" placeholder="도서 번호를 입력하세요" id="input">
+                        <button type="submit">대출</button>
+                    </form>
+
+                </div>
+
+                <div id="section3">
+                    <h2>대출목록</h2>
+                    <table border="1">
+                        <tr align="center">
+                            <th>번호</th>
+                            <th>책이름</th>
+                            <th>대출상태</th>
+                            <th>반납하기</th>
+                        </tr>
+                        <tbody align="center">
+                        <tr>
+                            <td>1</td>
+                            <td>좋은생각</td>
+                            <td class="rentstate">대출중</td>
+                            <td>
+                                <button>반납</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>지적대화를 위한 얕고 넓은 지식0</td>
+                            <td class="rentstate-no">연체중</td>
+                            <td>
+                                <button>반납</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>이것이 자바다</td>
+                            <td class="rentstate">대출중</td>
+                            <td>
+                                <button>반납</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<footer>
+</footer>
+</body>
+</html>

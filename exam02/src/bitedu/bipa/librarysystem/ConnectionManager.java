@@ -9,6 +9,11 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class ConnectionManager {
+	private static final ConnectionManager INSTANCE = new ConnectionManager();
+	public static ConnectionManager getInstance() {
+		return INSTANCE;
+	}
+	private ConnectionManager() {}
 	
 	//Constructor
 		public static Connection getConnection() {

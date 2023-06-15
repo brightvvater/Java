@@ -1,0 +1,10 @@
+params = [{"history_no":1, "book_no":191, "user_no":1, "rental_date":"2023-06-02", "return_date":"2023-06-02", "expect_return_date":"2023-06-09"},
+ {"history_no":2, "book_no":93, "user_no":1, "rental_date":"2023-06-02", "return_date":"2023-06-02", "expect_return_date":"2023-06-09"},
+ {"history_no":3, "book_no":99, "user_no":1, "rental_date":"2023-06-02", "return_date":"2023-06-02", "expect_return_date":"2023-06-09"},
+ {"history_no":4, "book_no":94, "user_no":2, "rental_date":"2023-06-02", "return_date":"2023-06-02", "expect_return_date":"2023-06-09"},
+ {"history_no":5, "book_no":88, "user_no":2, "rental_date":"2023-06-02", "return_date":"2023-06-02", "expect_return_date":"2023-06-09"},
+ {"history_no":6, "book_no":100, "user_no":2, "rental_date":"2023-06-02", "return_date":"2023-06-02", "expect_return_date":"2023-06-09"},
+ {"history_no":7, "book_no":89, "user_no":3, "rental_date":"2023-06-02", "return_date":"2023-06-02", "expect_return_date":"2023-06-09"},
+ {"history_no":8, "book_no":6, "user_no":11, "rental_date":"2022-03-20", "return_date":"2023-06-02", "expect_return_date":"2022-04-20"},
+ {"history_no":9, "book_no":17, "user_no":1, "rental_date":"2023-06-02", "return_date":"2023-06-02", "expect_return_date":"2023-06-09"},
+ {"history_no":10, "book_no":6, "user_no":11, "rental_date":"2022-03-20", "return_date":"2023-06-02", "expect_return_date":"2022-04-20"}]

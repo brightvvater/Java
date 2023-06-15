@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="EUC-KR">
+    <title>도서 관리 시스템</title>
+    <link href="../../css/layout.css" rel="stylesheet" type="text/css">
+    <link href="../../css/rent.css" rel="stylesheet" type="text/css">
+	<script src="https://kit.fontawesome.com/770bda6b86.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="wrapper">
+    <nav class="menu_bar">
+        <ul class="menu_bar_category">
+            <h1 class="menu_bar_header">
+                <i class="fa-solid fa-book" style="color: #3373e1;"></i>
+                도서 대출 시스템
+            </h1>
+
+            <li><img class="menu_icon" src="../../images/layout/menu_home.svg"/><a href="home.html">홈</a></li>
+			<li><img class="menu_icon" src="../../images/layout/menu_book.svg"/><a href="totalRent.html">대출/반납</a></li>
+			<li>
+				<div class="menu_div">
+					<img class="menu_icon" src="../../images/layout/menu_list.svg"/>
+					<a href="#">현황</a>
+					<img class="submenu_icon" src="../../images/layout/menu_arrow.svg" class="menu_icon_svg">
+				</div>
+				<ul style="width:100%;" class="submenu">
+                    <li><a href="totalState.html">전체 대출 목록</a></li>
+                    <li><a href="turnoverState.html">대출 회전율 정보</a></li>
+                    <li><a href="overduePerson.html">연체 회원 목록</a></li>
+                    <li><a href="overdueState.html">연체 도서 목록</a></li>
+                </ul>
+			</li>
+		</ul>
+        <div class="menu_bar_footer">
+            <span> <i class="fa-solid fa-user"></i>     관리자</span>
+            <button class="btn_logout">로그아웃</button>
+        </div>
+    </nav>
+    <main>
+        <div>
+            <div class="contents">
+           		<div class="menu_info">
+					<div class="menu_title">
+						<h1>대출/반납</h1>
+					</div>
+					<div class="flex_1"></div>
+					<div class="menu_label">
+						<img alt="" src="../../images/layout/menu_home.svg">
+						<label>관리자 | 대출/반납</label>
+					</div>
+				</div>
+                <div class="content_section">
+                    <div>
+                        <h2 style="display: inline;">이용자 현황정보</h2>
+                        <button class="btn_m_blue">대출가능</button>
+                        <button class="btn_m_blue">예약가능</button>
+						<button class="btn_m_blue"></button>
+						<button class="btn_m_red"></button>
+                    </div>
+                    <div id="totalList">
+                        <div id="list1">
+                            <span></span> <span></span> <span></span> <span></span>
+                        </div>
+                        <div id="list2">
+                            <span>대출</span> <span>예약</span> <span>연체</span> <span>대출가능수</span>
+                        </div>
+                    </div>
+
+                    <div id="personal-info">
+                        <table>
+                            <tr>
+                                <th>이름: </th>
+                                <th>전화번호: </th>
+                            </tr>
+                            <tr>
+                                <td>주소: </td>
+                                <td>이메일: </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="content_section">
+                    <h2>도서 대출</h2>
+                    <form>
+                        <input type="text" placeholder="도서 번호를 입력하세요" id="input">
+                        <button class="btn-submit" type="submit">대출</button>
+                    </form>
+
+                </div>
+
+                <div class="content_section"><!-- id="section3" -->
+                    <h2>대출목록</h2>
+                    <div class="sort_tbl">
+						<label><b></b></label>
+						<label>|</label>
+						<label>정렬 : </label>
+						<select>
+							<option value="">----</option>
+							<option value="overdue">연체중</option>
+							<option value="rental">대출중</option>
+							<option value="bookNo">도서명</option>
+						</select>
+					</div>
+                    <table class="overdue_tbl"><!-- border="1" -->
+                    	<colgroup>
+								<col width="15%"/>
+								<col width="*"/>
+								<col width="15%"/>
+								<col width="15%"/>
+						</colgroup>
+						<thead>
+	                       <tr>
+	                           <th>번호</th>
+	                           <th>책이름</th>
+	                           <th>대출상태</th>
+	                           <th>반납하기</th>
+	                       </tr>
+                        </thead>
+                        <tbody>
+	                        
+							
+                        </tbody>
+                    </table>
+					<div class="paging_ul">
+						<ul>
+							<li class="paging_li"><img alt="" src="../../images/layout/pages_left.svg"></li>
+							<li class="paging_li"><img alt="" src="../../images/layout/page_left.svg"></li>
+							<li class="flex_1 default_check"><a href="#">1</a></li>
+							<li class="paging_li"><img alt="" src="../../images/layout/page_right.svg"></li>
+							<li class="paging_li"><img alt="" src="../../images/layout/pages_right.svg"></li>
+						</ul>
+					</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<footer>
+</footer>
+</body>
+</html>
+
+<script>
+
+const jsonFile= [
+	{
+		"username":"조현수",
+		"phoneNumber":"010-9256-5814",
+		"email": "hscho1994@naver.com",
+		"address":"부산시 백양대로 494번길",
+		"grade_code":1,
+		"title": "세이노의 가르침",
+		"rental_date":"2023-06-08",
+		"return_date":"",
+		"expect_return_date":"2023-06-22"
+	},
+	
+	{
+		"username":"조현수",
+		"phoneNumber":"010-9256-5814",
+		"email": "hscho1994@naver.com",
+		"address":"부산시 백양대로 494번길",
+		"grade_code":1,
+		"title": "사장학개론",
+		"rental_date":"2023-05-08",
+		"return_date":"2023-05-10",
+		"expect_return_date":"2023-05-22"
+	},
+	{
+		"username":"조현수",
+		"phoneNumber":"010-9256-5814",
+		"email": "hscho1994@naver.com",
+		"address":"부산시 백양대로 494번길",
+		"grade_code":1,
+		"title": "장하준의 경제학 레시피",
+		"rental_date":"2023-06-10",
+		"return_date":"2023-06-13",
+		"expect_return_date":"2023-06-24"
+	},
+	{
+		"username":"조현수",
+		"phoneNumber":"010-9256-5814",
+		"email": "hscho1994@naver.com",
+		"address":"부산시 백양대로 494번길",
+		"grade_code":1,
+		"title": "흔한 남매 13",
+		"rental_date":"2023-05-24",
+		"return_date":"2023-06-13",
+		"expect_return_date":"2023-06-08"
+	},
+	{
+		"username":"조현수",
+		"phoneNumber":"010-9256-5814",
+		"email": "hscho1994@naver.com",
+		"address":"부산시 백양대로 494번길",
+		"grade_code":1,
+		"title": "챗GPT, 질문이 돈이 되는 세상",
+		"rental_date":"2023-06-02",
+		"return_date":"",
+		"expect_return_date":"2023-06-24"
+	},
+	
+]
+
+$(function(){
+	
+	tableCreate();
+	MemberInfo();
+	showGrade();
+	
+});
+
+var rentalData = JSON.parse(JSON.stringify(jsonFile));
+   
+
+//회원 등급 표시
+function showGrade(){
+		gradeCode = rentalData[0].grade_code;
+		let memberGrade = $('.btn_m_blue').eq(2);
+		switch(gradeCode){
+			case 1 :  memberGrade.append('준회원'); break;
+			case 2 :  memberGrade.append('일반회원'); break;
+			case 3 :  memberGrade.append('특별회원'); break;
+		}
+	}
+	
+	//대출목록 확인하기 대출
+	function tableCreate() {
+		
+		//console.log(Object.keys(rentalData).length) json파일 내의 객체 개수
+	    //console.log(bookData[2].return_date);
+	    let count = 1;
+	    let rentalCount=0; //대출권수
+		let overdueCount=0; //연체수
+		gradeCode = rentalData[0].grade_code;
+		let posCount; //대출 가능수 
+		let currnetPosCount;
+		switch(gradeCode){
+			case 1 : posCount =3;  break;
+			case 2 : posCount = 5; break;
+			case 3 : posCount = 10;  break;
+		}
+
+	   	 for(let i =0;i<Object.keys(rentalData).length;i++){
+			title = rentalData[i].title;
+	   		rentalDate = rentalData[i].rental_date;
+	   		returnDate = rentalData[i].return_date;
+	   		expectDate = rentalData[i].expect_return_date;
+			
+			 
+			 //console.log(new Date(expectDate).getTime()-new Date().getTime()<0)
+			 let returnstate;
+			 if(returnDate =='' && new Date(expectDate).getTime()-new Date().getTime()<0){
+				 returnstate= '연체중';
+				 overdueCount++;
+				 rentalCount++;
+			 }else if(returnDate === ''){
+				returnstate = '대출중'; 
+				rentalCount++;
+			 }else if(returnDate != ''){
+				overdueDate(rentalData[i]); // 연체여부 확인
+				continue;
+			 }
+
+			 
+			var tbody = $('.overdue_tbl tbody');
+			tbody.append('<tr>');
+			tbody.append('<td>'+(count++)+'</td>');
+			tbody.append('<td>'+title+'</td>');
+			tbody.append('<td class="rentstate">'+returnstate+'</td>');
+			tbody.append('<td><button class="btn_s_red">반납</button></td>');
+			tbody.append('</tr>');
+		}
+
+		currnetPosCount = posCount -rentalCount;
+		//console.log('posCount: ' +posCount);
+		//console.log('rentalCount: '+rentalCount);
+		//console.log('overdueCount: '+overdueCount);
+
+		$('#list1').children().eq(0).append(rentalCount);
+		$('#list1').children().eq(1).append(0);
+		$('#list1').children().eq(2).append(overdueCount);
+		$('#list1').children().eq(3).append(currnetPosCount);
+		$('.sort_tbl label b').append('전체 '+ rentalCount+'건');
+
+		if(rentalCount>=posCount){
+			
+			$('.btn_m_red').append('대출가능권수 초과');
+		}
+
+		applyButton(overdueCount,posCount);
+
+	}
+
+	//회원데이터 뿌리기
+	function MemberInfo(){
+		let data = rentalData[0];
+		let name = data.username;
+		let phoneNumber = data.phoneNumber;
+		let address = data.address;
+		let email = data.email;
+
+		$('#personal-info th').eq(0).append(name);
+		$('#personal-info th').eq(1).append(phoneNumber);
+		$('#personal-info td').eq(0).append(address);
+		$('#personal-info td').eq(1).append(email);
+		
+	}
+
+	//도서 대출
+    $('.btn-submit').on("click", () => {
+			let bookNumber = $('#input').val();
+			if(bookNumber =='') {
+				alert('대출할 책의 번호를 선택하세요.');
+			}else{
+				if(confirm(bookNumber+'번 도서를 대출하시겠습니까?')){
+					alert(bookNumber+'번 도서 대출 완료되었습니다.');
+				}
+			}
+            
+    });
+
+	
+
+	//대출가능/불가 버튼 보이기
+	function applyButton(overdueCount, posCount) {
+		//console.log('overdueCount: '+overdueCount);
+		//console.log('posCount: '+ posCount)
+		if(overdueCount>0 || posCount===0 ){
+			$('.btn_m_blue').eq(0).hide();
+			$('.btn_m_blue').eq(1).hide();
+			$('#input').val('도서대출 불가');
+			$('.btn-submit').hide();
+		}
+		
+		
+	}
+
+	//대출 불가 날짜 및 사유표시
+	function overdueDate(rentalData) {
+		//console.log(rentalData);
+		let expectDate = rentalData.expect_return_date;
+		let returnDate = rentalData.return_date;
+		//console.log(expectDate);
+		//console.log(returnDate);
+		let overdueDate = (new Date(returnDate).getTime()-new Date(expectDate).getTime())/(1000 * 60 * 60 * 24);
+		//console.log(overdueDate);
+		if(overdueDate>0){
+			$('.btn_m_blue').hide();
+			$('#input').val('도서대출 불가');
+			$('.btn-submit').hide();
+
+			let noRentalDate = new Date(returnDate).getDate()+overdueDate;
+			$('.btn_m_red').append(noRentalDate+'일까지 대출불가');
+			$('.btn_m_red').on("click", function(){
+				alert(rentalData.title+'을 '+ rentalData.rental_date+'에 대출하여 '+ rentalData.return_date+'에 반납하셨습니다.')
+			})
+		}
+
+		return overdueDate;
+    }
+
+	//대출, 연체 정렬
+	$('select').on("change", function() {
+		//console.log($('select').val());
+
+		let arr = [];
+		for(let i=0;i<rentalData.length;i++) {
+			if(rentalData[i].return_date ==''){
+				arr.push(rentalData[i]);
+			}
+		}
+
+		var tbody = $('.overdue_tbl tbody');
+			tbody.empty();
+		//console.log(arr[0].title)
+		let count = 1;
+		for(let i=0;i<arr.length;i++){
+			
+			let selectValue = $('select').val();
+			let overdue = new Date(arr[i].expect_return_date).getTime()-new Date().getTime();
+			let rentstate;
+			if(overdue<0) {
+				rentstate = '연체중';
+			}else {
+				rentstate = '대출중';
+			}
+			
+			if(selectValue == 'overdue' && overdue<0) {
+					
+					tbody.append('<tr>');
+					tbody.append('<td>'+(count++)+'</td>');
+					tbody.append('<td>'+arr[i].title+'</td>');
+					tbody.append('<td class="rentstate">연체중</td>');
+					tbody.append('<td><button class="btn_s_red">반납</button></td>');
+					tbody.append('</tr>')
+					break;
+			} else if(selectValue =='rental' && overdue >0) {
+
+					tbody.append('<tr>');
+					tbody.append('<td>'+(count++)+'</td>');
+					tbody.append('<td>'+arr[i].title+'</td>');
+					tbody.append('<td class="rentstate">대출중</td>');
+					tbody.append('<td><button class="btn_s_red">반납</button></td>');
+					tbody.append('</tr>')
+					
+			} else if(selectValue =='bookNo') {
+					arr.sort(function(a, b){
+       					if(a.title.toLowerCase() > b.title.toLowerCase())
+                   			return 1;
+           				else if(a.title.toLowerCase() < b.title.toLowerCase())
+                   			return -1;
+           				else
+                   			return 0;
+					});
+					tbody.append('<tr>');
+					tbody.append('<td>'+(count++)+'</td>');
+					tbody.append('<td>'+arr[i].title+'</td>');
+					tbody.append('<td class="rentstate">'+rentstate+ '</td>');
+					tbody.append('<td><button class="btn_s_red">반납</button></td>');
+					tbody.append('</tr>');
+					
+			} else if(selectValue ==''){
+					tbody.append('<tr>');
+					tbody.append('<td>'+(count++)+'</td>');
+					tbody.append('<td>'+arr[i].title+'</td>');
+					tbody.append('<td class="rentstate">'+rentstate+'</td>');
+					tbody.append('<td><button class="btn_s_red">반납</button></td>');
+					tbody.append('</tr>')
+			}
+			
+		}
+		
+		
+		
+	})
+	
+	
+
+    //반납하기 버튼
+	$(document).on("click",'.btn_s_red', function() {
+		alert('반납되었습니다.');
+	})
+
+	
+
+</script>
