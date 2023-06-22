@@ -21,7 +21,7 @@ import bitedu.bipa.quiz.vo.UserVO;
 public class LibraryBookService {
 	private ConnectionManager manager;
 	
-	private LibraryDAO dao;
+	private LibraryDAO dao; 
 	
 	public LibraryBookService() {
 		dao = new LibraryDAO();
@@ -210,13 +210,7 @@ public class LibraryBookService {
 			}
 			
 		} catch (SQLException e) {
-			try {
-				System.out.println("대출실패");
-				con.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 		}
 			manager.closeConnection(null, null, con);
 			return isRented;

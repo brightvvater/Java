@@ -20,8 +20,8 @@ public class LibraryDAO {
 	// 비즈니스 판별은 로직에서
 	public LibraryDAO() { 
 		this.manager = ConnectionManager.getInstance();
-	}
-	
+	} 
+	 
 	
 	public UserVO selectUser(String userId) throws SQLException {
 		UserVO user = null;
@@ -109,7 +109,8 @@ public class LibraryDAO {
 			}else if(affectedCount==0) {
 				System.out.println("반납실패");
 				con.rollback();
-			}		
+			}
+			manager.closeConnection(null, pstmt, null);
 		} catch (SQLException se) {
 			try {
 				con.rollback();
@@ -118,6 +119,7 @@ public class LibraryDAO {
 				e.printStackTrace();
 			}
 		}
+
 		return flag;
 	}
 	
@@ -135,6 +137,7 @@ public class LibraryDAO {
 				System.out.println("반납실패");
 				con.rollback();
 			}
+			manager.closeConnection(null, pstmt, null);
 		} catch (SQLException se) {
 			try {
 				con.rollback();
@@ -161,6 +164,7 @@ public class LibraryDAO {
 				System.out.println("반납실패");
 				con.rollback();
 			}
+			manager.closeConnection(null, pstmt, null);
 		} catch (SQLException se) {
 			try {
 				con.rollback();
@@ -193,6 +197,7 @@ public class LibraryDAO {
 				System.out.println("대출실패");
 				con.rollback();
 			}
+			manager.closeConnection(null, pstmt, null);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
@@ -213,6 +218,7 @@ public class LibraryDAO {
 				System.out.println("대출실패");
 				con.rollback();
 			}
+			manager.closeConnection(null, pstmt, null);
 		} catch (SQLException se) {
 			try {
 				con.rollback();
@@ -239,6 +245,7 @@ public class LibraryDAO {
 				System.out.println("대출실패");
 				con.rollback();
 			}
+			manager.closeConnection(null, pstmt, null);
 		} catch (SQLException se) {
 			try {
 				con.rollback();
@@ -269,6 +276,8 @@ public class LibraryDAO {
 					flag = true; //대출가능
 				}
 			}
+			
+			manager.closeConnection(rs, pstmt, null);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
@@ -297,6 +306,7 @@ public class LibraryDAO {
 				}
 					
 			}
+			manager.closeConnection(rs, pstmt, null);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
@@ -318,6 +328,7 @@ public class LibraryDAO {
 					return true;
 				}		
 			}
+			manager.closeConnection(rs, pstmt, null);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
