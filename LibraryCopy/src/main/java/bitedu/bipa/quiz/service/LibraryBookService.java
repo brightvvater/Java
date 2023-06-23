@@ -10,6 +10,7 @@ import java.util.HashMap;
 import bitedu.bipa.exception.NotRentedBookException;
 import bitedu.bipa.exception.RentFailedException;
 import bitedu.bipa.exception.RentedBookException;
+import bitedu.bipa.exception.ServiceStopException;
 import bitedu.bipa.quiz.dao.LibraryDAO;
 import bitedu.bipa.quiz.util.ConnectionManager;
 import bitedu.bipa.quiz.util.DateCalculation;
@@ -179,7 +180,10 @@ public class LibraryBookService {
 		
 			if(!dao.selectUserBook(userId, con)) {
 				throw new RentFailedException();
-			} else if(!dao.selectBorrowEnd(userId, con)) {
+			}else if(!dao.selectUserServiceStop(userId, con)) {
+				throw new ServiceStopException();
+			}
+			else if(!dao.selectBorrowEnd(userId, con)) {
 				throw new NotRentedBookException();
 			} else if(!dao.selectBookStatus(bookSeq, con)) {
 				throw new RentedBookException();

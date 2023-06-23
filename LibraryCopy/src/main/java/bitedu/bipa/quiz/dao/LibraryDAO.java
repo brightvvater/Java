@@ -259,20 +259,19 @@ public class LibraryDAO {
 	}
 	
 	/*대출 유효성 검사하기*/
-	//해당유저가 서비스 정지기간이 있는지, 해당 유저가 대출 권수를 초과하지 않았는지 확인
+	//해당유저가 해당 유저가 대출 권수를 초과하지 않았는지 확인
 	public boolean selectUserBook(String userId, Connection con) {
 		boolean flag =false;
-		String sql ="select max_book, service_stop from book_user where user_id = ?";
+		String sql ="select max_book from book_user where user_id = ?";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				int maxBook = rs.getInt("max_book");
-				Date serviceStop = rs.getDate("service_stop");
 				//System.out.println("maxBook: "+maxBook);
 				//System.out.println("serviceStop: "+serviceStop);
-				if(maxBook>0 && serviceStop == null) {
+				if(maxBook>0) {
 					flag = true; //대출가능
 				}
 			}
@@ -283,6 +282,30 @@ public class LibraryDAO {
 		}
 		return flag;
 	}
+	
+		//해당유저가 서비스 정지기간이 있는지  확인
+		public boolean selectUserServiceStop(String userId, Connection con) {
+			boolean flag =false;
+			String sql ="select service_stop from book_user where user_id = ?";
+			try {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				ResultSet rs = pstmt.executeQuery();
+				if(rs.next()) {
+					Date serviceStop = rs.getDate("service_stop");
+					//System.out.println("maxBook: "+maxBook);
+					//System.out.println("serviceStop: "+serviceStop);
+					if(serviceStop == null) {
+						flag = true; //대출가능
+					}
+				}
+				
+				manager.closeConnection(rs, pstmt, null);
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+			return flag;
+		}
 	
 	//해당유저가 미납중인 도서가 있는지 확인
 	public boolean selectBorrowEnd(String userId, Connection con) {

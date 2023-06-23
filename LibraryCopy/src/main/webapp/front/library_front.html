@@ -27,12 +27,27 @@
         div {
             margin-bottom: 20px;
         }
+        
+        .addInput {
+			margin-left: 150px;
+		}
+		
+		.addInput span{
+			margin-left: 0px;
+		}
+		
+		.addInput input {
+			width:200px;
+			height:40px;
+		}
+		
+		
     </style>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
    <script>
         $(document).ready(function(){
 			
-			$('#rent').css({
+			$('.addInput').css({
 				"visibility": "hidden"
 			})
 			
@@ -46,7 +61,7 @@
 					success:function(info) {
 						console.log(info);
 						if(info !='null') {
-							$('#rent').css({
+							$('.addInput').css({
 								"visibility":"visible"
 							})
 						}else {
@@ -56,7 +71,7 @@
                         	$('#returned').html('<tr><td>도서번호</td><td class="book_title">도서명</td><td>저자</td><td>대출일자</td><td>반납기한</td><td>반납일자</td></tr>');
                         	$('#not_returned').html('<tr><td>도서번호</td><td class="book_title">도서명</td><td>저자</td><td>대출일자</td><td>반납기한</td><td>반납일자</td><td>반납하기</td></tr>');
                         	$('#expecting_return').html('<tr><td>도서번호</td><td class="book_title">도서명</td><td>저자</td><td>대출일자</td><td>반납기한</td><td>반납일자</td><td>반납하기</td></tr>');
-							$('#rent').css({
+							$('.addInput').css({
 								"visibility":"hidden"
 							})
 
@@ -64,7 +79,109 @@
                           	<td></td><td></td><td></td><td></td></tr>`;
                         	$('#user_status').html($('#user_status').html()+userStatus);
 						}
-                        let data = (JSON.parse(info));
+                        showData(info);
+					},
+					error : function(error){
+                		
+                	},
+                	complete : function(){
+                		
+                	}
+				})
+			});
+			$(document).on("click", ".returnBtn", function() {
+				let result = confirm("정말 반납하시겠습니까?");
+			
+				console.log(name);
+				if(result) {
+					$.ajax({
+					url:'/LibraryCopy/bookService?bookSeq='+this.id+'&name='+name,
+					type:'get',
+					success: function(info) {
+						alert('반납되었습니다.');
+						showData(info);
+					},
+					error: function(error) {
+						alert('반납불가');
+					}
+					});
+				}
+			});
+			
+			$('#rentBook').on("click", function() {
+				let bookSeq = [];
+				for(let i=0;i<10;i++){
+					bookSeq.push($('#rent #inputBox'+i).val());
+				}
+				console.log(bookSeq);
+				$.ajax({
+					url:'/LibraryCopy/bookRentService?bookSeq='+bookSeq+'&name='+name,
+					type:'get',
+					success: function(info) {
+						alert('대출되었습니다.');
+						showData(info);
+						$('.inputBox').val('');
+						$('#addInput .inputBox').remove();
+                     }
+					,
+					error: function(request, status, error) {
+						alert(request.responseText);
+						//$('.inputBox').val('');
+						$('#returnInput .inputBox').remove();
+					}
+				})
+				
+			})
+			
+			
+			$('#returnBooks').on("click", function() {
+				let bookSeq = [];
+				for(let i=0;i<10;i++){
+					bookSeq.push($('#returnBook #returnBox'+i).val());
+				}
+				
+				$.ajax({
+					url:'/LibraryCopy/bookService?bookSeq='+bookSeq+'&name='+name,
+					type:'get',
+					success: function(info) {
+						alert('반납되었습니다.');
+						showData(info);
+						$('.inputBox').val('');
+						$('#addInput .inputBox').remove();
+                     }
+					,
+					error: function(request, status, error) {
+						alert(request.responseText);
+						$('.inputBox').val('');
+						$('#returnInput .inputBox').remove();
+					}
+				})
+				
+			})
+			
+			let rentCount =1;
+			let returnCount =1;
+			$('#addRent').on("click", function() {
+				$('#addInput').append(`<div><input type='text' class='inputBox' id ='inputBox${rentCount++}' placeholder='대출할 책의 번호를 입력하세요.'></div>`);
+			});
+			
+			$('#removeRent').on("click", function() {
+				$('#addInput .inputBox').last().remove();
+			})
+			
+			
+			$('#addReturn').on("click", function() {
+				$('#returnInput').append(`<div><input type='text' class='inputBox' id ='returnBox${returnCount++}' placeholder='반납할 책의 번호를 입력하세요.'></div>`);
+			});
+			
+			$('#removeReturn').on("click", function() {
+				$('#returnInput .inputBox').last().remove();
+			})
+			
+           });
+           
+           function showData(info) {
+			   let data = (JSON.parse(info));
                         
                         let user_data = data.data.userInfo;
 
@@ -92,6 +209,9 @@
                         
                         for(let book of list ){
 						  var returnBtn = `<button class='returnBtn'id='${book.bookSeq}'>반납하기</button>`;
+						  if(book.returnDate !='-') {
+							  continue;
+						  }
                           let temp1 = `<tr><td>${book.bookIsbn}</td><td>${book.bookTitle}</td><td>${book.bookAuthor}</td>
                               <td>${book.borrowStart}</td><td>${book.borrowEnd}</td><td>${book.returnDate}</td>
                               <td>${returnBtn}</td></tr>`;
@@ -119,50 +239,7 @@
                               <td>${returnBtn}</td></tr>`;
                           $('#expecting_return').html($('#expecting_return').html()+temp1);  
                         }
-					},
-					error : function(error){
-                		
-                	},
-                	complete : function(){
-                		
-                	}
-				})
-			});
-			$(document).on("click", ".returnBtn", function() {
-				let result = confirm("정말 반납하시겠습니까?");
-			
-				console.log(name);
-				if(result) {
-					$.ajax({
-					url:'/LibraryCopy/bookService?id='+this.id+'&name='+name,
-					type:'get',
-					success: function() {
-						alert('성공')
-					},
-					error: function(error) {
-						alert('반납불가');
-					}
-					});
-				}
-			});
-			
-			$('#rentBook').on("click", function() {
-				let bookSeq = $('#rent input').val();
-				$.ajax({
-					url:'/LibraryCopy/bookRentService?bookSeq='+bookSeq+'&name='+name,
-					type:'get',
-					success: function() {
-						alert('대출되었습니다.')
-					},
-					error: function(request, status, error) {
-						alert(request.responseText);
-						$('#inputBox').val('');
-					}
-				})
-				
-			})
-			
-           });
+		   }
    </script>
 <body>
     <span><button id="list">도서현황보기</button></span>
@@ -173,12 +250,24 @@
         
     </table>
     </div>
-    <div id = "rent">
+    <div id = "rent"  class='addInput'>
         <span>대출하기</span>
-        <input type="text" id ='inputBox' placeholder="대출할 책의 번호를 입력하세요.">
+        <div id='addInput'>
+			<input type="text" id ='inputBox0' placeholder="대출할 책의 번호를 입력하세요."><br>
+		</div>
+        <input type="button" id="addRent" value="추가">
+        <input type="button" id="removeRent" value="취소">
         <input type="button" id="rentBook" value="대출하기">
     </div>
-    <br>
+    <div id = "returnBook" class='addInput'>
+        <span>반납하기</span>
+        <div id='returnInput'>
+			<input type="text" id ='returnBox0' placeholder="반납할 책의 번호를 입력하세요."><br>
+		</div>
+        <input type="button" id="addReturn" value="추가">
+        <input type="button" id="removeReturn" value="취소">
+        <input type="button" id="returnBooks" value="반납하기">
+    </div>
     <div>
         <span>전체도서목록</span>
         <table id="total">

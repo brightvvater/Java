@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +33,30 @@ public class LibraryListener extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//System.out.println("name:" +req.getParameter("name"));
 		String name = req.getParameter("name");
-		String id = req.getParameter("id");
+		String bookSeq = req.getParameter("bookSeq");
+		
+		
+		if(bookSeq !=null) {
+			//System.out.println("a: "+ bookSeq);
+			List<Integer> bookSeqList = new ArrayList<Integer>();
+			String[] books = bookSeq.split(",");
+			if(books.length==0) {
+				throw new RuntimeException("반납할 책을 선택해주세요");
+			}
+			for(String book: books) {
+				try {
+					int bookNum = Integer.parseInt(book);
+					bookSeqList.add(bookNum);
+				}catch(NumberFormatException e) {
+					throw new RuntimeException("숫자를 입력해주세요.");
+				}
+							
+			}
+			for(int i=0;i<bookSeqList.size();i++) {
+				service.returnBook(name, bookSeqList.get(i));
+			}
+		}
+		
 		
 		String data = this.getData(name);
 		resp.setContentType("text/html; charset=UTF-8");
@@ -41,14 +65,11 @@ public class LibraryListener extends HttpServlet {
 		out.close();
 		
 		//System.out.println(id);
-		if(id !=null) {
-			int bookSeq = Integer.parseInt(id);
-			service.returnBook(name, bookSeq);
-		}
+		
 		
 	}
 	
-	private String getData(String userId) {
+	public String getData(String userId) {
 		String result = null;
 		LibraryBookService lbs = new LibraryBookService();
 		try {
