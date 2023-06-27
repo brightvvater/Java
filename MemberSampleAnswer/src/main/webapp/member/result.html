@@ -1,0 +1,19 @@
+<%@ page language="java" contenTye="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>가입결과</title>
+</head>
+<body>
+<h1>
+<%
+	String id = request.getParameter("userId");
+	out.print(id);
+%>
+</h1>
+<br>
+<h1><%=id%></h1>
+</body>
+</html>
