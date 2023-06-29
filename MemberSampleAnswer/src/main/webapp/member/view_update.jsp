@@ -1,6 +1,6 @@
 <%@page import="bitedu.bipa.member.controller.TestVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="true" %>
 <!DOCTYPE html>
 <html>
 <head>

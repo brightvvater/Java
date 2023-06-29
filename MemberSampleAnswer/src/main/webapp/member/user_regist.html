@@ -55,7 +55,7 @@
 				let year = $('#year').val();
 				let month = $('#month').val();
 				let days = new Date(parseInt(year),month,0).getDate();
-				alert(days);
+				//alert(days);
 				let day_of_month = "<select id='' name='day'><option>--일--</option>"
 				for(let i=0;i<days;i++){
 					day_of_month += `<option value='${i+1}'>${i+1}</option>`;
@@ -64,20 +64,23 @@
 				$('#days').html(day_of_month);
 			});
 			$('#btn_check_id').on('click',function(e){
+				e.preventDefault();
 				let user_id = $('#user_id').val();
+			
 				let alpha = 'abcdefghijklmnopqrstuvwxyz';
 				let message = "";
 				if(user_id!=''&&user_id.length<=8&&alpha.indexOf(user_id.charAt(0))>=0){
-					alert(user_id);
+					//alert(user_id);
 					$.ajax({
-						url : "/MemberSample/memberController",
+						url : "/MemberSampleAnswer/memberControl",
 						type : 'get',
 						data : {'user_id':user_id},
 						success : function(data){
-							let flag = JSON.parse(data).result;
-							if(flag){
+							console.log(data)
+							if(data == 'false'){
+								
 								$('#message').html('사용할 수 없는 아이디입니다.');
-							} else {
+							} else if(data =='true') {
 								$('#message').html('사용할 수 있는 아이디입니다.');
 							}
 							$('#flag').val("true");
@@ -93,7 +96,7 @@
 					message += 'id가 비어있거나 형식에 맞지 않습니다.';
 					$('#message').html(message);
 				}
-				e.preventDefault();
+				
 			});
 			let checkId = function(){
 				return $('#flag').val();
@@ -108,7 +111,8 @@
 			$('#sending').on('click',function(e){
 							
 				let result = validateData();
-				result = true;
+				console.log(result);
+				//result = true;
 				if(!result){
 					e.preventDefault();
 				}
@@ -132,7 +136,7 @@
         <tr><th>구분</th><th class="data_ui" colspan="2">데이터입력</th><th>유효성검사</th><th>비고</th></tr>
         <tr>
             <td>아이디</td>
-            <td colspan="2"><input type="text" id="userId" name="userId"><button id="btn_check_id">아이디확인</button></td>
+            <td colspan="2"><input type="text" id="user_id" name="userId"><button id="btn_check_id">아이디확인</button></td>
             <td>8자리 , 첫글자 영문소문자</td><td id="message"></td></tr>
         <tr><td>비밀번호</td><td colspan="2"><input type="text" id="pwd1" name="pwd"></td><td rowspan="2">비밀번호 일치</td><td><input type="hidden" id="flag" value="false"></td></tr>
         <tr><td>비번확인</td><td colspan="2"><input type="text" id="password"></td><td></td></tr>
