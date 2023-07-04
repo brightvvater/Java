@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>INDEX</h1>
-<jsp:forward page="./BlmController"></jsp:forward>
+<jsp:forward page="/BlmController"></jsp:forward>
 </body>
 </html>

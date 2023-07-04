@@ -71,8 +71,8 @@ ${param.flag=='true'?"<script>alert('삭제성공');</script>":""}
 <c:forEach var ="copy" items="${list}">
 	<tr>
 		<td>${copy.bookSeq}</td>
-		<td><a href='/MemberSample0629/BlmController?cmd=detail&bookSeq=${copy.bookSeq}'>${copy.title}</a></td>
-		<td><fmt:formatDate value =${copy.author} pattern = "yyyy-MM-dd"/></td><td>${copy.publishDate}</td>
+		<td><a href='/MemberSampleJSP/BlmController?cmd=userDetail&bookSeq=${copy.bookSeq}'>${copy.title}</a></td>
+		<td>${copy.author}"</td><td>${copy.publishDate}</td>
 		<td><a href="./BlmController?cmd=remove&bookSeq=${copy.bookSeq}">삭제</a></td>
 	</tr>
 </c:forEach>

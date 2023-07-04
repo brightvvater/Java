@@ -17,6 +17,7 @@ public class BlmService {
 	}
 	
 	public ArrayList<BookCopy> searchBookAll(){
+		//System.out.println("service................................");
 		ArrayList<BookCopy> list = null;
 		list = dao.selectBookAll();
 		return list;

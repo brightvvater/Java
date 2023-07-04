@@ -65,6 +65,8 @@ public class BlmDAO {
 	}
 	
 	public ArrayList<BookCopy> selectBookAll(){
+		
+		//System.out.println("dao.....................");
 		ArrayList<BookCopy> list = null;
 		list = new ArrayList<BookCopy>();
 		BookCopy copy = null;
@@ -72,6 +74,8 @@ public class BlmDAO {
 		sb.append("inner join book_copy b on a.book_isbn=b.book_isbn");
 		String sql = sb.toString();
 		Connection con = manager.getConnection();
+		
+		//System.out.println("con: "+con);
 		PreparedStatement pstmt;
 		try {
 			pstmt = con.prepareStatement(sql);

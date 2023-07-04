@@ -1,11 +1,13 @@
 <%@page import="bitedu.bipa.member.vo.BookCopy"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>도서 등록</title>
+<title>사용자 도서 상세</title>
 <style>
         table, td, th {
             border : 1px solid black;
@@ -20,7 +22,7 @@
             /* text-align: center; */
         }
 
-        input , select {
+        input , select, button {
             font-size: 20px;
         }
         .data_ui {
@@ -49,23 +51,52 @@
         #message {
         	color: red;
         }
+        
+        #go_reserve, #go_rent{
+        	font-size: 20px;
+        }
+        
+        #info {
+        	background-color: red;
+        	color: white;
+        }
     </style>
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript">
 	<%
 	BookCopy detail = (BookCopy)request.getAttribute("detail");
+	System.out.println(detail.getBookStaus());
 %>
 	$(document).ready(function(){
-		 $("#go_book_update").on("click", function(e){
-			let form = $("#frm");
-			form.attr("action", "/MemberSampleJSP/BlmController?cmd=update");			
-			form.submit();
-		}); 
+	 
+		$('#go_reserve').on("click", function() {
+			let bookSeq = $('#book_seq').val();
+			let userId = 'user1'; //하드코딩
+			
+			$.ajax({
+				url: "/MemberSampleJSP/reserve",
+				data: {"bookSeq":bookSeq,"userId": userId},
+				type: "post",
+				success: function(data) {
+					let result = JSON.parse(data).result;
+					if(result == false) {
+						alert('예약 불가합니다.')
+					}else {
+						alert('예약 완료!');
+					}
+					
+				},
+				error: function() {
+					
+				}
+			})
+		});
+		
 		$("#go_book_list").on("click", function(){
 			let form = $("#frm");
 			form.attr("action", "/MemberSampleJSP/BlmController?cmd=list");
 			form.submit();
-		})
+		});
 	})
 		
 	</script>
@@ -79,13 +110,13 @@
         <tr>
             <td>도서번호</td>
             <td colspan="2">
-            	<input type="text" id="book_seq" name="book_seq" value=<%=detail.getBookSeq() %>>
+            	<input type="text" id="book_seq" name="book_seq" value="<%=detail.getBookSeq() %>" disabled>
             </td>
             <td id="message"></td></tr>
         <tr>
         	<td>ISBN</td>
         	<td colspan="2">
-        		<input type="text" id="isbn" name="isbn" value=<%=detail.getIsbn() %>>
+        		<input type="text" id="isbn" name="isbn" value="<%=detail.getIsbn() %>" disabled>
         	</td>
         	<td>
         		<input type="hidden" id="flag" value="false">
@@ -94,55 +125,38 @@
         <tr>
         	<td>도서명</td>
         	<td colspan="2">
-        		<input type="text" id="book_title" name="book_title" value=<%=detail.getTitle() %>>
+        		<input type="text" id="book_title" name="book_title" value="<%=detail.getTitle() %>" disabled>
         	</td><td></td>
         </tr>
         <tr>
         	<td>저자/역자</td>
         	<td colspan="2">
-        		<input type="text" id="author" name="author" value=<%=detail.getAuthor()%>>
+        		<input type="text" id="author" name="author" value="<%=detail.getAuthor()%>" disabled>
         	</td><td></td>
         </tr>
         <tr>
         	<td>출판사</td>
         	<td colspan="2">
-        		<input type="text" id="publisher" size="35" name="publisher">
+        		<input type="text" id="publisher" size="35" name="publisher" disabled>
         	</td><td></td>
         </tr>
         <tr>
         	<td>출판일</td>
         	<td colspan="2">
-        		<input type="text" id="publish_date" size="35" name="publish_date" value=<%=detail.getPublishDate() %>>
+        		<input type="text" id="publish_date" size="35" name="publish_date" value="<%=detail.getPublishDate() %>" disabled>
         	</td>
         	<td></td>
-        <tr>
-        <tr>
-        	<td>도서위치</td>
-        	<td colspan="2">
-        		<select name="book_position">
-        			<option value='BS'>--도서 위치--
-        			<option value='BS-0001' selected>일반서가
-        			<option value='BS-0002'>예약서가
-        			<option value='BS-'>회원
-        		</select>
-        	</td>
-        	<td></td>
-        <tr>
-        <tr>
-        	<td>도서상태</td>
-        	<td colspan="2">
-        		<select name="book_status">
-        			<option value='BM'>--도서 상태--
-        			<option value='BM-001' selected>도서대출서비스
-        			<option value='BM-002'>도서수선
-        			<option value='BM-003'>도서저장고
-        		</select>
-        	</td>
-        	<td></td>
-        <tr>
+        </tr>
+        
         <tr>
         	<td colspan="4" id="sending">
-        		<input type="submit" id="go_book_update" value="도서수정"> 
+        		<c:if test="${detail.getBookStaus() eq 'BM-0001'}">
+        			<button type="button" id="go_rent">대출</button> 
+        		</c:if>
+        		<c:if test="${detail.getBookStaus() ne 'BM-0001'}">
+        			<button type="button" id="info" disabled>대출중</button>
+        			<button type="button" id="go_reserve">도서예약</button>
+        		</c:if>
         		<input type="submit" id="go_book_list" value="도서리스트">
         	</td>
         </tr>

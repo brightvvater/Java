@@ -23,6 +23,8 @@ public class ConnectionManager {
 		}
 		return manager;
 	}
+	
+	
 	public Connection getConnection() {
 		Connection con = null;
 		try {
@@ -46,7 +48,7 @@ public class ConnectionManager {
 		String jdbcURL = "jdbc:mysql://localhost:3306/bitedu";
 		String driver = "com.mysql.cj.jdbc.Driver";
 		String id = "root";
-		String pwd = "1234";
+		String pwd = "mysql";
 		
 		try {
 			Class.forName(driver);
@@ -61,7 +63,7 @@ public class ConnectionManager {
 		return con;
 	}
 	
-	public void closeConnection(ResultSet rs , Statement stmt, Connection con) {
+	public static void closeConnection(ResultSet rs , Statement stmt, Connection con) {
 		if(rs!=null) {
 			try {
 				rs.close();

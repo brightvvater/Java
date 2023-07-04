@@ -12,7 +12,32 @@ public class BookCopy {
 	private String bookPosition;
 	private String bookStaus;
 	
+	public BookCopy() {}
 	
+	public BookCopy(String isbn, String title, String author, String publisher, Date publishDate,
+			String bookPosition, String bookStaus) {
+		this.isbn = isbn;
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.bookPosition = bookPosition;
+		this.bookStaus = bookStaus;
+	}
+	
+	
+	public BookCopy(int bookSeq, String isbn, String title, String author, String publisher, Date publishDate,
+			String bookPosition, String bookStaus) {
+		super();
+		this.bookSeq = bookSeq;
+		this.isbn = isbn;
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.bookPosition = bookPosition;
+		this.bookStaus = bookStaus;
+	}
 	public int getBookSeq() {
 		return bookSeq;
 	}

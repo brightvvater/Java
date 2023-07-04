@@ -44,13 +44,13 @@
 	$(document).ready(function(){
 		$("#go_book_regist").on("click", function(){
 			let form = $("#frm");
-			form.attr("action", "/MemberSample0629/BlmController?cmd=regist");
+			form.attr("action", "/MemberSampleJSP/BlmController?cmd=regist");
 			form.submit();
 		})
 		
 		$("#go_book_list").on("click", function(){
 			let form = $("#frm");
-			form.attr("action", "/MemberSample0629/BlmController?cmd=list");
+			form.attr("action", "/MemberSampleJSP/BlmController?cmd=list");
 			form.submit();
 		})
 		
@@ -60,7 +60,6 @@
 	</script>
 </head>
 <body>
-<%--  --%>
 <form action="" method="post" id="frm">
     <table>
         <tr><th colspan="4" id="form">도서등록</th></tr>
@@ -101,7 +100,7 @@
         <tr>
         	<td>출판일</td>
         	<td colspan="2">
-        		<input type="text" id="publish_date" size="35" name="publish_date">
+        		<input type="date" id="publish_date" size="35" name="publish_date">
         	</td>
         	<td></td>
         <tr>

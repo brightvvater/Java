@@ -2,7 +2,6 @@ package bitedu.bipa.member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -25,88 +24,117 @@ public class BlmController extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
+	
+	BlmService service; 
+	
     public BlmController() {
-        super();
-        // TODO Auto-generated constructor stub
+        this.service = new BlmService();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.setCharacterEncoding("UTF-8");
+		
+		//System.out.println("controller.......................");
 		String cmd = request.getParameter("cmd");
+		//System.out.println("cmd: "+cmd);
 		cmd = cmd == null?"list":cmd;
 		String url = "./manager/book_list.jsp";
-		System.out.println(cmd);
-		BlmService blm = new BlmService();
-		boolean isRedirect = false;
+		
 		if(cmd.equals("list")) {
-			ArrayList<BookCopy> list = blm.searchBookAll();
+			ArrayList<BookCopy> list = service.searchBookAll();
 			request.setAttribute("list", list);
-			
-		} else if(cmd.equals("regist")) {
-			
-			BookCopy vo = new BookCopy();
-			vo.setIsbn(request.getParameter("isbn"));
-			vo.setTitle(request.getParameter("book_title"));
-			vo.setAuthor(request.getParameter("author"));
-			vo.setPublisher(request.getParameter("publisher"));
-			vo.setPublishDate(Date.valueOf(request.getParameter("publish_date")));
-			vo.setBookPosition(request.getParameter("book_position"));
-			vo.setBookStaus(request.getParameter("book_status"));
-			boolean flag = blm.registBook(vo);
-			System.out.println("등록 유무 : " + flag);
-			url = "./BlmController?cmd=list";
-			isRedirect = true;
-			
-		} else if(cmd.equals("remove")) {
+		}else if(cmd.equals("detail")) {
 			String bookSeq = request.getParameter("bookSeq");
-			boolean flag = blm.removeBook(bookSeq);
-			System.out.println("삭제 유무 : " + flag);
-			url = "./BlmController?cmd=list&flag=true";
-			isRedirect = true;
-		} else if(cmd.equals("view_regist")) {
-			url ="./manager/book_regist.jsp";
-			isRedirect = true;
-		} else if(cmd.equals("detail")) {
-			String bookSeq = request.getParameter("bookSeq");
-			BookCopy bc = blm.bookDetail(bookSeq);
-			request.setAttribute("detail", bc);
+			BookCopy vo = service.bookDetail(bookSeq);
+			request.setAttribute("detail", vo);
 			url = "./manager/book_detail.jsp";
-		} else if(cmd.equals("update")) {
-			BookCopy bc = new BookCopy();
-			bc.setBookSeq(Integer.parseInt(request.getParameter("book_seq")));
-			bc.setIsbn(request.getParameter("isbn"));
-			bc.setTitle(request.getParameter("book_title"));
-			bc.setAuthor(request.getParameter("author"));
-			bc.setPublishDate(Date.valueOf(request.getParameter("publish_date")));
-			bc.setBookPosition(request.getParameter("book_position"));
-			bc.setBookStaus(request.getParameter("book_status"));
-			
-			boolean flag = blm.bookModify(bc);
-			System.out.println("수정 여부 : " + flag);
-			url = "./BlmController?cmd=list";
-			isRedirect = true;
+		}else if(cmd.equals("remove")) {
+			this.doDelete(request, response);
+		}else if(cmd.equals("userDetail")) {
+			String bookSeq = request.getParameter("bookSeq");
+			BookCopy vo = service.bookDetail(bookSeq);
+			request.setAttribute("detail", vo);
+			url = "./manager/book_detail_user.jsp";
+		}else if(cmd.equals("view_regist")) {
+			url = "./manager/book_regist.jsp";
 		}
 		
+		RequestDispatcher rd = request.getRequestDispatcher(url);
+		rd.forward(request, response);
 		
-		if(!isRedirect) {
-			RequestDispatcher rd = request.getRequestDispatcher(url);
-			rd.forward(request, response);
-		} else {
-			response.sendRedirect(url);
-		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		this.doGet(request, response);
+		String cmd = request.getParameter("cmd");
+		//System.out.println("cmd: "+cmd);
+		
+		cmd = cmd == null?"list":cmd;
+		
+		if(cmd.equals("list")) {
+			ArrayList<BookCopy> list = service.searchBookAll();
+			request.setAttribute("list", list);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("./manager/book_list.jsp");
+			rd.forward(request, response);
+			
+		}else if(cmd.equals("update")) {
+			this.doPut(request, response);
+		}else if(cmd.equals("regist")) {
+			String isbn = request.getParameter("isbn");
+			String title = request.getParameter("book_title");
+			String author =request.getParameter("author");
+			Date publishDate = Date.valueOf(request.getParameter("publish_date"));
+			String bookPosition = request.getParameter("book_position");
+			String bookStatus = request.getParameter("book_status");
+			BookCopy bc = new BookCopy(isbn, title, author, author, publishDate, bookPosition, bookStatus);
+			boolean flag = service.registBook(bc);
+			if(flag) {
+				System.out.println("등록 성공");
+			}else {
+				System.out.println("실패!");
+			}
+			response.sendRedirect("./BlmController?cmd=list");
+		}
+		
 	}
+
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String bookSeq = req.getParameter("bookSeq");
+		boolean flag = service.removeBook(bookSeq);
+		
+		String url = "./BlmController?cmd=list&flag"+flag;
+		resp.sendRedirect(url);
+		
+	}
+
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		int bookSeq = Integer.parseInt(req.getParameter("book_seq"));
+		String isbn = req.getParameter("isbn");
+		String title = req.getParameter("book_title");
+		String author =req.getParameter("author");
+		Date publishDate = Date.valueOf(req.getParameter("publish_date"));
+		String bookPosition = req.getParameter("book_position");
+		String bookStatus = req.getParameter("book_status");
+		BookCopy bc = new BookCopy(bookSeq, isbn, title, author, author, publishDate, bookPosition, bookStatus);
+		boolean flag = service.bookModify(bc);
+		if(flag) {
+			System.out.println("update 성공");
+		}else {
+			System.out.println("실패!");
+		}
+		resp.sendRedirect("./BlmController?cmd=list");
+	}
+	
+	
+	
+	
 
 }
