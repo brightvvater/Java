@@ -6,27 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import bitedu.bipa.book.utils.ConnectionManager;
 import bitedu.bipa.book.vo.BookCopy;
 
-@Component
+@Repository
 public class BlmDAO {
 	
-	private static BlmDAO dao;
-	private ConnectionManager manager = ConnectionManager.getInstance();
 	
-	private BlmDAO() {
-	}
+	@Autowired
+	private ConnectionManager manager;
 	
-	public static BlmDAO getInstance() {
-		if(dao ==null ) {
-			dao  = new BlmDAO();
-		}
-		
-		return dao;
-	}
+	
 	public boolean insertBook(BookCopy copy){
 		boolean flag = false;
 		String sql1 = "insert into book_info values (?,?,?,?)";
@@ -102,7 +96,7 @@ public class BlmDAO {
 				copy.setPublishDate(rs.getDate(4));
 				copy.setBookSeq(rs.getInt(5));
 				copy.setBookPosition(rs.getString(6));
-				copy.setBookStaus(rs.getString(7));
+				copy.setBookStatus(rs.getString(7));
 				list.add(copy);
 			}
 			manager.closeConnection(rs, pstmt, con);
@@ -187,7 +181,7 @@ public class BlmDAO {
 				bc.setPublishDate(rs.getDate(4));
 				bc.setBookSeq(rs.getInt(5));
 				bc.setBookPosition(rs.getString(6));
-				bc.setBookStaus(rs.getString(7));
+				bc.setBookStatus(rs.getString(7));
 				
 			}
 		} catch (SQLException e) {
@@ -217,7 +211,7 @@ public class BlmDAO {
 			if (affected > 0) {
 				pstmt = con.prepareStatement(sql2);
 				pstmt.setString(1, bookCopy.getBookPosition());
-				pstmt.setString(2, bookCopy.getBookStaus());
+				pstmt.setString(2, bookCopy.getBookStatus());
 				pstmt.setString(3, bookCopy.getIsbn());
 				pstmt.setInt(4, bookCopy.getBookSeq());
 				pstmt.executeUpdate();
@@ -261,7 +255,7 @@ public class BlmDAO {
 						copy.setPublishDate(rs.getDate(4));
 						copy.setBookSeq(rs.getInt(5));
 						copy.setBookPosition(rs.getString(6));
-						copy.setBookStaus(rs.getString(7));
+						copy.setBookStatus(rs.getString(7));
 						list.add(copy);
 					}
 					manager.closeConnection(rs, pstmt, con);

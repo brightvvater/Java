@@ -10,21 +10,21 @@ public class BookCopy {
 	private String publisher;
 	private Date publishDate;
 	private String bookPosition;
-	private String bookStaus;
+	private String bookStatus;
 	
 	
 	public BookCopy() {}
 	
 	
 	public BookCopy(String isbn, String title, String author, String publisher, Date publishDate,
-			String bookPosition, String bookStaus) {
+			String bookPosition, String bookStatus) {
 		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
 		this.publisher = publisher;
 		this.publishDate = publishDate;
 		this.bookPosition = bookPosition;
-		this.bookStaus = bookStaus;
+		this.bookStatus = bookStatus;
 	}
 	public int getBookSeq() {
 		return bookSeq;
@@ -68,17 +68,17 @@ public class BookCopy {
 	public void setBookPosition(String bookPosition) {
 		this.bookPosition = bookPosition;
 	}
-	public String getBookStaus() {
-		return bookStaus;
+	public String getBookStatus() {
+		return bookStatus;
 	}
-	public void setBookStaus(String bookStaus) {
-		this.bookStaus = bookStaus;
+	public void setBookStatus(String bookStatus) {
+		this.bookStatus = bookStatus;
 	}
 	@Override
 	public String toString() {
 		return "BookCopy [bookSeq=" + bookSeq + ", isbn=" + isbn + ", title=" + title + ", author=" + author
 				+ ", publisher=" + publisher + ", publishDate=" + publishDate + ", bookPosition=" + bookPosition
-				+ ", bookStaus=" + bookStaus + "]";
+				+ ", bookStatus=" + bookStatus + "]";
 	}
 	
 	

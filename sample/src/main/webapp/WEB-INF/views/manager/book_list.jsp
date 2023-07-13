@@ -10,38 +10,17 @@
 <head>
 <meta charset="UTF-8">
 <title>리스트</title>
-<style type="text/css">
-	table, th, td {
-		border: 1px solid black;
-		border-collapse: collapse;
-		margin:20px auto;
-	}
-	
-	td {
-		width:200px;
-		height:50px;
-		font-size: 20px;
-	}
-	
-	th {
-		font-size: 30px;
-	}
-	
-	button {
-		font-size: 15px;
-		margin:5px;
-	}
-</style>
+<link href="../resources/css/basic_style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-	
-</script>
+
 </head>
 <body>
 <%
-PageDTO<BookCopy> dto = (PageDTO<BookCopy>)request.getAttribute("dto");
-
+ List<BookCopy> list = (List)request.getAttribute("list");
 %>
+<%-- <%
+PageDTO<BookCopy> dto = (PageDTO<BookCopy>)request.getAttribute("dto");
+%> --%>
 <table>
 	<tr>
 		<th colspan="5">도서리스트</th>
@@ -53,14 +32,16 @@ PageDTO<BookCopy> dto = (PageDTO<BookCopy>)request.getAttribute("dto");
 		<td>출판일</td>
 		<td></td>
 	</tr>
-	<% for(int i=0;i<dto.getContent().size();i++){ 
-		List<BookCopy> list = dto.getContent(); %>
+	<% //for(int i=0;i<dto.getContent().size();i++){ 
+		//List<BookCopy> list = dto.getContent();
+		for(int i=0;i<list.size();i++) {
+	%>
 	<tr>
 		<td><%=list.get(i).getBookSeq() %></td>
-		<td><a href="/Practice/bookController?cmd=detail&bookSeq=<%=list.get(i).getBookSeq() %>"><%=list.get(i).getTitle() %></a></td>
+		<td><a href="detail.do?bookSeq=<%=list.get(i).getBookSeq()%>"><%=list.get(i).getTitle() %></a></td>
 		<td><%=list.get(i).getAuthor() %></td>
 		<td><%=list.get(i).getPublishDate() %></td>
-		<td><a href="/Practice/bookController?cmd=remove&bookSeq=<%=list.get(i).getBookSeq() %>">삭제</a></td>
+		<td><a href="remove.do?bookSeq=<%=list.get(i).getBookSeq()%>">삭제</a></td>
 	</tr>
 	<%} %>
 	<tr>
@@ -68,20 +49,20 @@ PageDTO<BookCopy> dto = (PageDTO<BookCopy>)request.getAttribute("dto");
 	</tr>
 	
 </table>
-	<div>
-		<span>
+	<!--<table id="page">
+		<tr>
+			<td>
 			<c:if test="${dto.getFirstPageInThisPage() !=1}">
-				<a href="/Practice/bookController?page=<%=dto.getCurrentPage()-1%>">prev</a>
-			</c:if>
-		</span>
+				<a href="list.do?page=<%-- <%=dto.getCurrentPage()-1%> --%>">prev</a>
+			</c:if>	
 			<c:forEach var="i" begin="${dto.firstPageInThisPage}" end="${dto.lastPageInThisPage}">
-				<span><a href="/Practice/bookController?page=${i}">${i}</a></span>
-			</c:forEach>
-		<span>
+				<span><a href="list.do?page=${i}">${i}</a></span>
+			</c:forEach>		
 			<c:if test="${dto.getLastPageInThisPage() !=dto.getLastPage()}">
-				<a href="/Practice/bookController?page=<%=dto.getCurrentPage()+1%>">next</a>
+				<a href="list.do?page=<%-- <%=//dto.getCurrentPage()+1%> --%>">next</a>
 			</c:if>
-		</span>
-	</div>
+			</td>
+		</tr>
+	</table> -->
 </body>
 </html>

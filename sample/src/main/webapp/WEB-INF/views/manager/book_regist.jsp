@@ -68,7 +68,7 @@
         <tr>
             <td>도서번호</td>
             <td colspan="2">
-            	<input type="text" id="book_seq" name="book_seq" disabled="disabled">
+            	<input type="text" id="book_seq" name="bookSeq" disabled="disabled">
             </td>
             <td id="message">자동생성</td></tr>
         <tr>
@@ -83,7 +83,7 @@
         <tr>
         	<td>도서명</td>
         	<td colspan="2">
-        		<input type="text" id="book_title" name="book_title">
+        		<input type="text" id="book_title" name="title">
         	</td><td></td>
         </tr>
         <tr>
@@ -101,14 +101,14 @@
         <tr>
         	<td>출판일</td>
         	<td colspan="2">
-        		<input type="date" id="publish_date" size="35" name="publish_date">
+        		<input type="date" id="publish_date" size="35" name="publishDate">
         	</td>
         	<td></td>
         <tr>
         <tr>
         	<td>도서위치</td>
         	<td colspan="2">
-        		<select name="book_position" >
+        		<select name="bookPosition" >
         			<option value='BS'>--도서 위치--
         			<option value='BS-001' selected>일반서가
         			<option value='BS-002'>예약서가
@@ -120,7 +120,7 @@
         <tr>
         	<td>도서상태</td>
         	<td colspan="2">
-        		<select name="book_status" >
+        		<select name="bookStatus" >
         			<option value='BM'>--도서 상태--
         			<option value='BM-001' selected>도서대출서비스
         			<option value='BM-002'>도서수선

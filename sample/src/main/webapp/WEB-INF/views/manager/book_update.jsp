@@ -1,10 +1,11 @@
+<%@page import="bitedu.bipa.book.vo.BookCopy"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>도서 등록</title>
+<title>도서 수정</title>
 <style>
         table, td, th {
             border : 1px solid black;
@@ -51,22 +52,25 @@
     </style>
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript"></script>
+	<%
+	BookCopy book = (BookCopy)request.getAttribute("book");
+	%>
 </head>
 <body>
-<form action="/MemberSample/bookController" method="post">
+<form action="update.do" method="post">
     <table>
-        <tr><th colspan="4" id="form">도서등록</th></tr>
+        <tr><th colspan="4" id="form">도서수정</th></tr>
         <tr><th>구분</th><th class="data_ui" colspan="2">데이터입력</th><th>비고</th></tr>
         <tr>
             <td>도서번호</td>
             <td colspan="2">
-            	<input type="text" id="book_seq" name="book_seq" disabled="disabled">
+            	<input type="text" id="book_seq" name="bookSeq" value="<%=book.getBookSeq() %>" disabled="disabled">
             </td>
             <td id="message">자동생성</td></tr>
         <tr>
         	<td>ISBN</td>
         	<td colspan="2">
-        		<input type="text" id="isbn" name="isbn">
+        		<input type="text" id="isbn" name="isbn"  value="<%=book.getIsbn()%>">
         	</td>
         	<td>
         		<input type="hidden" id="flag" value="false">
@@ -75,13 +79,13 @@
         <tr>
         	<td>도서명</td>
         	<td colspan="2">
-        		<input type="text" id="book_title" name="book_title">
+        		<input type="text" id="book_title" name="title"  value="<%=book.getTitle() %>">
         	</td><td></td>
         </tr>
         <tr>
         	<td>저자/역자</td>
         	<td colspan="2">
-        		<input type="text" id="author" name="author">
+        		<input type="text" id="author" name="author"  value="<%=book.getAuthor() %>">
         	</td><td></td>
         </tr>
         <tr>
@@ -93,14 +97,14 @@
         <tr>
         	<td>출판일</td>
         	<td colspan="2">
-        		<input type="text" id="publish_date" size="35" name="publish_date">
+        		<input type="text" id="publish_date" size="35" name="publishDate"  value="<%=book.getPublishDate() %>">
         	</td>
         	<td></td>
         <tr>
         <tr>
         	<td>도서위치</td>
         	<td colspan="2">
-        		<select name="book_position" disabled="disabled">
+        		<select name="bookPosition" disabled="disabled">
         			<option value='BS'>--도서 위치--
         			<option value='BS-001' selected>일반서가
         			<option value='BS-002'>예약서가
@@ -112,7 +116,7 @@
         <tr>
         	<td>도서상태</td>
         	<td colspan="2">
-        		<select name="book_status" disabled="disabled">
+        		<select name="bookStatus" disabled="disabled">
         			<option value='BM'>--도서 상태--
         			<option value='BM-001' selected>도서대출서비스
         			<option value='BM-002'>도서수선

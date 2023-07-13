@@ -19,7 +19,8 @@ import bitedu.bipa.book.service.BlmService;
 import bitedu.bipa.book.utils.PageDTO;
 import bitedu.bipa.book.vo.BookCopy;
 
-@Controller("bookController")
+@Controller("bookController1")
+@RequestMapping("/basic")
 public class BookController {
 
 	@Autowired
@@ -30,9 +31,11 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "/list.do", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		PageDTO<BookCopy> list = service.serchBookWithPaging(1);
+		String page = request.getParameter("page");
+		page = page == null? "1": page;
+		PageDTO<BookCopy> list = service.serchBookWithPaging(Integer.parseInt(page));
 		
 		mav.addObject("dto", list);
 		mav.setViewName("./manager/book_list");
@@ -72,8 +75,31 @@ public class BookController {
 		BookCopy copy = new BookCopy(isbn, title, author, publisher,publishDate, bookPosition, bookStatus);
 		
 		service.registBook(copy);
-		mav.setViewName("redirect:/list.do");
+		mav.setViewName("redirect:list.do");
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "/detail.do", method = RequestMethod.GET)
+	public ModelAndView viewDetail(HttpServletRequest request) {
+		String bookSeq = request.getParameter("bookSeq");
+		ModelAndView mav = new ModelAndView();
+		BookCopy copy = service.bookDetail(bookSeq);
+		mav.addObject("detail", copy);
+		mav.setViewName("./manager/book_detail_user");
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/remove.do", method = RequestMethod.GET)
+	public ModelAndView removeBook(HttpServletRequest request) {
+		String bookSeq = request.getParameter("bookSeq");
+		ModelAndView mav = new ModelAndView();
+		service.removeBook(bookSeq);
+		mav.setViewName("redirect:list.do");
+		
+		return mav;
+	}
+	
 }

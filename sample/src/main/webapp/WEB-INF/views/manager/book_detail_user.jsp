@@ -65,7 +65,7 @@
 	<script type="text/javascript">
 	<%
 	BookCopy detail = (BookCopy)request.getAttribute("detail");
-	System.out.println(detail.getBookStaus());
+	
 %>
 	$(document).ready(function(){
 	 
@@ -94,7 +94,8 @@
 		
 		$("#go_book_list").on("click", function(){
 			let form = $("#frm");
-			form.attr("action", "/MemberSampleJSP/BlmController?cmd=list");
+			form.attr("action", "list.do");
+			form.attr("method","get");
 			form.submit();
 		});
 	})
