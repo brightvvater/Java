@@ -214,13 +214,12 @@
 	  		 let data = {
 					rContent : rContent,
 					boardSeq: boardSeq,
-					userId: userId,
 					regDate: dateString,
 				};
 	  		
 	  		
-	  		console.log(data);
-	  		console.log(JSON.stringify(data)); 
+	  		//console.log(data);
+	  		//console.log(JSON.stringify(data)); 
   			 $.ajax({
   				url:'/board/layer/reply',
   				type:'post',
@@ -228,15 +227,12 @@
   				dataType:"json",
   				contentType:"application/json",
   				success: function() {
-  					$('.add_reply').val('');
-  					$('#ajax1').append("<div>");
-  					$('#ajax1').append("<p>"+data.replyId+"</p>");
-  					$('#ajax1').append("<p>"+data.rContent+ "</p>");
-  					$('#ajax1').append("<p>"+data.regDate+"</p>");
-  					$('#ajax1').append("</div>");
+  					alert('댓글이 작성되었습니다.');
+  					location.href="./detail.do?boardSeq="+boardSeq;
   				},
   				error: function() {
-  					
+  					alert('로그인이 필요합니다.');
+  					$('input').val('');
   				}
   			}); 
   		});
@@ -261,29 +257,23 @@
 	  		 let data = {
 					rContent : rContent,
 					boardSeq: boardSeq,
-					userId: userId,
 					regDate: dateString,
 					groupId: parentId
 				};
 	  		
-	  		 alert('ajax?');
   			 $.ajax({
   				url:'/board/layer/reply',
   				type:'post',
   				data: JSON.stringify(data),
   				contentType:"application/json",
   				success: function(data) {
-  					console.log(data);
-  					$('.add_reply').val('');
-  					$('#ajax').append("<div class='reply'>");
-  					$('#ajax').append("<p>ㄴ"+data.replyId+"</p>");
-  					$('#ajax').append("<p>"+data.rContent+ "</p>");
-  					$('#ajax').append("<p>"+data.regDate+"</p>");
-  					$('#ajax').append("</div>");
+  					alert('댓글이 작성되었습니다.');
+  					location.href="./detail.do?boardSeq="+boardSeq;
 				
   				},
   				error: function(error) {
-  					alert('error');
+  					alert('로그인이 필요합니다.');
+  					$('input').val('');
   				}
   			}); 
   			

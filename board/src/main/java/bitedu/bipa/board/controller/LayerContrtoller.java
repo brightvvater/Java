@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,17 +38,22 @@ public class LayerContrtoller {
 		ModelAndView mav = new ModelAndView();
 		
 		List<BoardVO> list =  service.showList();
-		System.out.println(list);
+		//System.out.println(list);
 		mav.addObject("list", list);
 		mav.setViewName("./layer/index");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/regist.do", method = RequestMethod.GET)
-	public ModelAndView viewRegist() {
+	public ModelAndView viewRegist(HttpSession session) {
+		//System.out.println(session.getAttribute("userId"));
 		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("userId")==null) {
+			mav.setViewName("/member/login");
+		}else {
+			mav.setViewName("./layer/regist");
+		}
 		
-		mav.setViewName("./layer/regist");
 		return mav;
 	}
 	
@@ -74,12 +81,16 @@ public class LayerContrtoller {
 	
 	@ResponseBody
 	@RequestMapping(value = "/reply", method = RequestMethod.POST, produces= {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<ReplyVO> registReply(@RequestBody ReplyVO reply) {
-		//System.out.println(reply);
-		service.registReply(reply);
-		ReplyVO vo =  service.readRepl();
-		System.out.println(vo);
-		return new ResponseEntity<ReplyVO>(vo, HttpStatus.OK);
+	public ResponseEntity<ReplyVO> registReply(@RequestBody ReplyVO reply, HttpSession session ) {
+		System.out.println("userId:"+(String)session.getAttribute("userId"));
+		if((String)session.getAttribute("userId") ==null) {
+			return new ResponseEntity<ReplyVO>(HttpStatus.BAD_REQUEST);
+		}else {
+			reply.setUserId((String)session.getAttribute("userId"));
+			service.registReply(reply);
+			ReplyVO vo =  service.readRepl();
+			return new ResponseEntity<ReplyVO>(vo, HttpStatus.OK);
+		}
 		
 	}
 	

@@ -15,7 +15,7 @@ import bitedu.bipa.book.utils.ConnectionManager;
 import bitedu.bipa.book.vo.BookCopy;
 
 @Repository   
-public class BlmDAO2 {
+public class BlmDAO2 implements IBlmDAO{
 	
 	
 	@Autowired

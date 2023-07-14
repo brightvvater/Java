@@ -123,6 +123,8 @@
           <button onclick="view_regist()">글 등록하기</button>
         </div>
         
+
+       
         <table>
           <tr id="col-title">
             <td>번호</td>

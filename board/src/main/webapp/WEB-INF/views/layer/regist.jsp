@@ -142,6 +142,9 @@
   		 location.href="/board/layer/regist.do";
   	 }
   	</script>
+  	<%
+  		String userId  =(String)session.getAttribute("userId");
+  	%>
     <header>안녕하세요 BIT 도서관입니다.</header>
 
     <div class="body">
@@ -169,7 +172,7 @@
           </tr>
           <tr>
             <td>작성자</td>
-            <td><input type="text" readonly="readonly" class="readonly" id="user_id" name="userId"></td>
+            <td><input type="text" readonly="readonly" class="readonly" id="user_id" name="userId" value=<%=userId %>></td>
           </tr>
           <tr>
             <td>내용</td>
