@@ -11,12 +11,23 @@
 		<result property="regDate" column="reg_date"/>
 	</resultMap>
 	
-	<select id="selectList" resultMap="guestMap">
+	 <select id="selectList" resultMap="guestMap">
 	 <![CDATA[
 	 	select * from guest;
 	 ]]>
-	</select>
+	</select> 
 	
+	<select id="selectList2" resultMap="guestMap" parameterType="map">
+	 <![CDATA[
+	 	select * from guest where ${selectBox} like concat('%', #{searchBox}, '%');	
+	 ]]>
+	</select>
+	<insert id="insertGuest" parameterType="guestVO">
+		<![CDATA[
+			insert into guest (title, writer, content, reg_date) 
+				values( #{title}, #{writer}, #{content}, #{regDate});
+		]]>
+	</insert>
 	
 	
 </mapper>

@@ -12,9 +12,12 @@
    </definition>
 
    <definition name="/board/list" extends="baseLayout">
-      <put-attribute name="title" value="메인페이지" />
+      <put-attribute name="title" value="리스트페이지" />
       <put-attribute name="body" value="/WEB-INF/views/board/board_list.jsp" />
    </definition>
-
+	<definition name="/board/regist" extends="baseLayout">
+      <put-attribute name="title" value="메인페이지" />
+      <put-attribute name="body" value="/WEB-INF/views/board/board_regist.jsp" />
+   </definition>
 
 </tiles-definitions>

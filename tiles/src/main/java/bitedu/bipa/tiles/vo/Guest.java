@@ -10,6 +10,7 @@ public class Guest {
 	private String content;
 	private int regNo;
 	private Date regDate;
+	private String boardImage;
 	
 	public Guest() {}
 
@@ -69,6 +70,22 @@ public class Guest {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+	
+	
+
+	public String getBoardImage() {
+		return boardImage;
+	}
+
+	public void setBoardImage(String boardImage) {
+		this.boardImage = boardImage;
+	}
+
+	@Override
+	public String toString() {
+		return "Guest [bno=" + bno + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regNo="
+				+ regNo + ", regDate=" + regDate + "]";
 	}
 	
 	

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import bitedu.bipa.tiles.dao.BookDao;
 import bitedu.bipa.tiles.vo.BookCopy;
+import bitedu.bipa.tiles.vo.Guest;
 
 @Service
 public class BookService {
@@ -23,5 +24,7 @@ public class BookService {
 		
 		return list;
 	}
+	
+	
 
 }

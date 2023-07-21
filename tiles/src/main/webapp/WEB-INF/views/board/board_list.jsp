@@ -10,14 +10,11 @@
 </head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
-	$(document).ready(function() {
-		$('#searchBtn').on("click", function() {
-			alert('검색하기');
-			let optVal = $("select[name='selectBox']").val();
-			let searchVal = $('#searchBox').val();
-			
-		})
-	});
+$(document).ready(function() {
+	$('#regist_btn').on("click", function() {
+		location.href="./regist.do";
+	})
+})
 </script>
 <body>
 <form action="./search.do" method="get">
@@ -25,11 +22,13 @@
 		<select name="selectBox">
 			<option value="title">제목</option>
 			<option value="writer">작성자</option>
+			<option value="bno">번호</option>
 		</select> 
 		<input type="text" id="searchBox" name="searchBox">
 		<button type="submit" id="searchBtn">검색</button>
 	</div>
 </form>
+
 	<table id="join">
 	<tr>
 		<td colspan="4">방명록 리스트</td>
@@ -48,6 +47,9 @@
 			<td>${guest.regNo }</td>
 		</tr>
 	</c:forEach>
+	<tr>
+		<td colspan="4"><button type="button" id="regist_btn">등록하기</button></td>
+	</tr>
 </table>
 </body>
 </html>
