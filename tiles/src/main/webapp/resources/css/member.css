@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+#join, #join tr, #join td {
+		border: 1px solid black;
+		border-collapse: collapse;
+		margin: 20px auto;
+	}
+	
+	#join {
+		width: 70%;
+		
+	}
+	
+	#join tr {
+		height: 50px;
+	}
+	
+	input, button {
+		font-size: 20px;
+	}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.member">
+	<resultMap id="userMap" type="userVO">
+		<id property="userId" column="user_id"></id>
+		<result property="password" column="user_pass"/>
+		<result property="phoneNumber" column="user_phone_number"/>
+	</resultMap>
+	
+	<insert id="insertMember" parameterType="userVO">
+		<![CDATA[
+			insert into book_user (user_id, user_pass, user_phone_number) 
+				values (#{userId}, #{password}, #{phoneNumber});
+		]]>
+	</insert>
+	<select id="selectById" parameterType="String" resultMap="userMap">
+		<![CDATA[
+			select user_id, user_pass, user_phone_number
+				 from book_user 
+				 where user_id = #{userId}
+		]]>
+	</select>
+	<select id="selectList" resultMap="userMap">
+		<![CDATA[
+			select user_id, user_pass, user_phone_number from book_user;
+		]]>
+	</select>
+	<delete id="deleteUser" parameterType="String">
+		<![CDATA[
+			delete from book_user where user_id = #{userId}
+		]]>
+	</delete>
+	
+</mapper>

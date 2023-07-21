@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.book">
+	<resultMap id="bookMap" type="bookCopyVO">
+		<id property="bookSeq" column="book_seq"></id>
+		<result property="bookPosition" column="book_position"/>
+		<result property="bookStatus" column="book_status"/>
+		<result property="isbn" column="book_isbn"/>
+		<result property="title" column="book_title"/>
+		<result property="author" column="book_author"/>
+		<result property="publishDate" column="book_published_date"/>
+		<result property="bookImage" column="book_image"/>
+	</resultMap>
+	
+	<select id="selectList" resultMap="bookMap">
+	 <![CDATA[
+	 	select * from book_copy as c join book_info as i
+	 		on c.book_isbn = i.book_isbn;
+	 ]]>
+	</select>
+	
+	
+	
+</mapper>

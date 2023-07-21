@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.guest">
+	<resultMap id="guestMap" type="guestVO">
+		<id property="bno" column="bno"></id>
+		<result property="title" column="title"/>
+		<result property="writer" column="writer"/>
+		<result property="content" column="content"/>
+		<result property="regNo" column="reg_no"/>
+		<result property="regDate" column="reg_date"/>
+	</resultMap>
+	
+	<select id="selectList" resultMap="guestMap">
+	 <![CDATA[
+	 	select * from guest;
+	 ]]>
+	</select>
+	
+	
+	
+</mapper>
